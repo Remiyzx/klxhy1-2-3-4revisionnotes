@@ -1,0 +1,1923 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuàilè Xué Hànyǔ Lesson 1-4 Revision Notes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Andika:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* 强制规范拼音字体（标准单层 a, g 写法） */
+        .pinyin, .py-font {
+            font-family: 'Andika', sans-serif !important;
+            font-variant-ligatures: none;
+        }
+        .hanzi {
+            font-family: 'Noto Sans SC', 'KaiTi', '楷体', serif;
+        }
+        
+        /* 教室前排投影超大基础字号 */
+        body {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            background-color: #f3f4f6; /* gray-100 */
+            color: #111827; /* gray-900 */
+        }
+
+        /* 高级中性灰阶层次 */
+        .bg-card { background-color: #ffffff; }
+        .border-subtle { border-color: #e5e7eb; }
+        .border-muted { border-color: #d1d5db; }
+        .border-strong { border-color: #4b5563; }
+        
+        .page-badge {
+            background-color: #374151;
+            color: #f9fafb;
+            font-size: 0.95rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            display: inline-block;
+            vertical-align: middle;
+            font-family: 'Andika', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        /* 隐藏滚动条 */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* 词汇卡翻牌效果 */
+        .vocab-card {
+            transition: all 0.25s ease-in-out;
+            cursor: pointer;
+            perspective: 1000px;
+        }
+        .vocab-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .vocab-back {
+            display: none;
+        }
+        .vocab-card.flipped .vocab-front {
+            display: none;
+        }
+        .vocab-card.flipped .vocab-back {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* 题目折叠答案 */
+        .answer-box {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .answer-box.show {
+            display: block;
+        }
+
+        .hidden-section { display: none; }
+        .active-section { display: block; animation: fadeIn 0.35s ease; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 表格排版 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 2px solid #e5e7eb;
+            padding: 1rem 1.25rem;
+            text-align: left;
+        }
+        th {
+            background-color: #f9fafb;
+            color: #1f2937;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden">
+
+    <!-- ========================================================
+         LEFT SIDEBAR NAVIGATION (NO CHINESE IN MAIN TOP HEADER)
+    ======================================================== -->
+    <nav class="w-96 bg-gray-950 text-gray-300 h-full flex flex-col shrink-0 shadow-2xl relative z-30 border-r border-gray-800">
+        <div class="p-8 border-b border-gray-800 bg-gray-900">
+            <h1 class="text-2xl font-black text-white pinyin leading-snug tracking-wide">
+                Kuàilè Xué Hànyǔ<br>
+                <span class="text-gray-400 font-semibold text-lg">Lesson 1-4 Revision Notes</span>
+            </h1>
+            <p class="text-xs text-gray-400 mt-3 uppercase tracking-wider font-semibold">Classroom Projection Edition</p>
+        </div>
+        
+        <div class="flex-1 overflow-y-auto no-scrollbar p-6 space-y-3">
+            <button onclick="switchTab('sec-phonetics')" id="btn-sec-phonetics" class="nav-btn w-full text-left px-5 py-4 rounded-xl font-bold transition-all bg-gray-800 text-white shadow-md border border-gray-700">
+                1. Phonetics of Chinese
+            </button>
+            <button onclick="switchTab('sec-characters')" id="btn-sec-characters" class="nav-btn w-full text-left px-5 py-4 rounded-xl font-bold transition-all hover:bg-gray-800 hover:text-white border border-transparent">
+                2. Chinese Characters
+            </button>
+            <button onclick="switchTab('sec-numbers')" id="btn-sec-numbers" class="nav-btn w-full text-left px-5 py-4 rounded-xl font-bold transition-all hover:bg-gray-800 hover:text-white border border-transparent">
+                3. About the Numbers
+            </button>
+            <button onclick="switchTab('sec-conversations')" id="btn-sec-conversations" class="nav-btn w-full text-left px-5 py-4 rounded-xl font-bold transition-all hover:bg-gray-800 hover:text-white border border-transparent">
+                4. Daily Conversations
+            </button>
+            <button onclick="switchTab('sec-grammar')" id="btn-sec-grammar" class="nav-btn w-full text-left px-5 py-4 rounded-xl font-bold transition-all hover:bg-gray-800 hover:text-white border border-transparent">
+                5. Grammar Focus
+            </button>
+            <div class="pt-4 mt-4 border-t border-gray-800">
+                <button onclick="switchTab('sec-checklist')" id="btn-sec-checklist" class="nav-btn w-full text-left px-5 py-4 rounded-xl font-bold transition-all hover:bg-gray-800 hover:text-white border border-gray-700 bg-gray-900/50">
+                    ✓ Complete Self-Check List
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========================================================
+         RIGHT MAIN CONTENT AREA
+    ======================================================== -->
+    <main class="flex-1 h-full overflow-y-auto p-12 bg-gray-100 relative z-10 scroll-smooth">
+        <div class="max-w-6xl mx-auto pb-32">
+
+            <!-- ========================================================
+                 SECTION 1: PHONETICS OF CHINESE
+            ======================================================== -->
+            <section id="sec-phonetics" class="active-section space-y-12">
+                <div class="border-b-4 border-gray-900 pb-6">
+                    <h2 class="text-5xl font-black text-gray-900 tracking-tight">1. Phonetics of Chinese (Pinyin)</h2>
+                    <p class="text-gray-600 mt-3 text-2xl font-medium">Standard Pinyin Mechanics, Spelling Laws & Pronunciation Hacks <span class="page-badge ml-3">KLXHY Pg 1-7</span></p>
+                </div>
+
+                <!-- The Core Formula & Syllable Counting -->
+                <div class="bg-gray-900 text-gray-100 rounded-2xl p-10 shadow-lg border border-gray-800">
+                    <h3 class="text-2xl text-gray-400 font-bold mb-4 uppercase tracking-wider">The Core Formula: Components of a Syllable</h3>
+                    <div class="flex items-center justify-center gap-6 text-3xl pinyin font-bold flex-wrap mb-8">
+                        <div class="bg-gray-800 px-6 py-4 rounded-xl border border-gray-700 text-center">Initial<br><span class="text-base text-gray-400 font-normal">Consonant (21)</span></div>
+                        <div class="text-gray-500 text-4xl">+</div>
+                        <div class="bg-gray-800 px-6 py-4 rounded-xl border border-gray-700 text-center">Final<br><span class="text-base text-gray-400 font-normal">Vowel (36)</span></div>
+                        <div class="text-gray-500 text-4xl">+</div>
+                        <div class="bg-gray-800 px-6 py-4 rounded-xl border border-gray-700 text-center">Tone<br><span class="text-base text-gray-400 font-normal">Pitch (4 + Neutral)</span></div>
+                        <div class="text-gray-500 text-4xl">=</div>
+                        <div class="bg-white text-gray-950 px-8 py-4 rounded-xl shadow-xl text-center">Complete Syllable<br><span class="text-base text-gray-600 font-bold pinyin">e.g., n + ǐ = nǐ</span></div>
+                    </div>
+                    
+                    <!-- Syllable Counting Guide -->
+                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 text-xl leading-relaxed">
+                        <strong class="text-white text-2xl block mb-2">📐 How to Count Chinese Syllables & Words:</strong>
+                        <p class="text-gray-300">
+                            In Chinese, <strong>1 Hanzi Character = 1 Spoken Syllable = 1 Pinyin Unit</strong>. Every single syllable you speak counts as exactly 1 syllable, regardless of how many letters are used to spell it!
+                        </p>
+                        <div class="bg-gray-950 p-4 rounded-lg mt-3 text-center pinyin font-bold text-2xl text-gray-100 border border-gray-800">
+                            Wǒ(1) bà(2)ba(3) mā(4)ma(5) hěn(6) máng(7). &rarr; <span class="underline decoration-2 underline-offset-4 text-white">Total: 7 Syllables!</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- The Four Tones in ONE Horizontal Row -->
+                <div>
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-3xl font-black text-gray-900">The Four Tones & Pitch Scale</h3>
+                        <span class="page-badge">KLXHY Pg 3-4</span>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl border-l-8 border-gray-900 shadow-sm mb-6 text-xl">
+                        <strong class="text-2xl text-gray-950">⚠️ Teacher's Essential Command: Be DRAMATIC!</strong><br>
+                        Chinese is a tonal language. Changing the pitch changes the meaning completely (e.g., <span class="pinyin font-bold">mā</span> = mother vs. <span class="pinyin font-bold">mà</span> = scold). Use hand gestures to draw the tone contours in the air, exaggerate pitch highs and lows, and never murmur!
+                    </div>
+
+                    <!-- 4 Columns in 1 Single Row -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="bg-white p-6 rounded-xl border border-gray-300 shadow-sm flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-center mb-3">
+                                    <span class="text-xl font-bold text-gray-700">1st Tone</span>
+                                    <span class="pinyin text-4xl font-extrabold text-gray-950">ā</span>
+                                </div>
+                                <span class="inline-block bg-gray-200 text-gray-800 text-sm px-3 py-1 rounded-md font-bold mb-3">Pitch: 5-5</span>
+                                <p class="text-lg text-gray-700 leading-normal">
+                                    <strong>High & Flat:</strong> Sounds like a hospital ECG flatline monitor (<span class="font-bold">BEEEEEP---</span>). Kept high and steady.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-gray-300 shadow-sm flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-center mb-3">
+                                    <span class="text-xl font-bold text-gray-700">2nd Tone</span>
+                                    <span class="pinyin text-4xl font-extrabold text-gray-950">á</span>
+                                </div>
+                                <span class="inline-block bg-gray-200 text-gray-800 text-sm px-3 py-1 rounded-md font-bold mb-3">Pitch: 3-5</span>
+                                <p class="text-lg text-gray-700 leading-normal">
+                                    <strong>Rising:</strong> Sounds genuinely confused or surprised, exactly like asking <span class="font-bold">"Huh?!"</span> or <span class="font-bold">"What?!"</span>.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-gray-300 shadow-sm flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-center mb-3">
+                                    <span class="text-xl font-bold text-gray-700">3rd Tone</span>
+                                    <span class="pinyin text-4xl font-extrabold text-gray-950">ǎ</span>
+                                </div>
+                                <span class="inline-block bg-gray-200 text-gray-800 text-sm px-3 py-1 rounded-md font-bold mb-3">Pitch: 2-1-4</span>
+                                <p class="text-lg text-gray-700 leading-normal">
+                                    <strong>Fall & Rise:</strong> Like a rollercoaster dipping into a valley and curving up, or nodding your chin down and up.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-gray-300 shadow-sm flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-center mb-3">
+                                    <span class="text-xl font-bold text-gray-700">4th Tone</span>
+                                    <span class="pinyin text-4xl font-extrabold text-gray-950">à</span>
+                                </div>
+                                <span class="inline-block bg-gray-200 text-gray-800 text-sm px-3 py-1 rounded-md font-bold mb-3">Pitch: 5-1</span>
+                                <p class="text-lg text-gray-700 leading-normal">
+                                    <strong>Sharp Drop:</strong> Sounds angry, commanding ("Stop!"), or like being suddenly stepped on (<span class="font-bold">"Ouch!"</span>).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pronunciation Target Board & Interactive External Tool -->
+                <div class="bg-white rounded-2xl p-8 border border-gray-300 shadow-sm space-y-6">
+                    <div class="flex justify-between items-center border-b border-gray-200 pb-4">
+                        <h3 class="text-3xl font-bold text-gray-950">🎯 Pronunciation Target Board: High-Priority Practice</h3>
+                        <a href="https://yoyochinese.com/chinese-learning-tools/Mandarin-Chinese-pronunciation-lesson/pinyin-chart-table" target="_blank" class="bg-gray-900 text-white hover:bg-gray-800 px-5 py-2.5 rounded-xl text-base font-bold transition-all flex items-center gap-2">
+                            <span>Open Yoyo Chinese Pinyin Audio Table &rarr;</span>
+                        </a>
+                    </div>
+                    
+                    <p class="text-xl text-gray-700">
+                        Please visit the linked audio chart above for self-study and click each syllable to hear native audio. Pay special attention to these <strong>critical trouble-spots</strong>:
+                    </p>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pinyin text-xl font-bold">
+                        <div class="bg-gray-50 border border-gray-300 p-4 rounded-xl">
+                            <span class="text-xs text-gray-500 uppercase block font-sans mb-1 font-bold">Palatals (Smile Wide)</span>
+                            ji, qi, xi
+                        </div>
+                        <div class="bg-gray-50 border border-gray-300 p-4 rounded-xl">
+                            <span class="text-xs text-gray-500 uppercase block font-sans mb-1 font-bold">Sibilants (Teeth Closed)</span>
+                            zi, ci, si
+                        </div>
+                        <div class="bg-gray-50 border border-gray-300 p-4 rounded-xl">
+                            <span class="text-xs text-gray-500 uppercase block font-sans mb-1 font-bold">Retroflex (Roll Tongue)</span>
+                            zhi, chi, shi, ri
+                        </div>
+                        <div class="bg-gray-50 border border-gray-300 p-4 rounded-xl">
+                            <span class="text-xs text-gray-500 uppercase block font-sans mb-1 font-bold">Special Retroflex Vowel</span>
+                            re
+                        </div>
+                        <div class="bg-gray-50 border border-gray-300 p-4 rounded-xl">
+                            <span class="text-xs text-gray-500 uppercase block font-sans mb-1 font-bold">Rounded Whistle Lips</span>
+                            yu (ü)
+                        </div>
+                        <div class="bg-gray-50 border border-gray-300 p-4 rounded-xl">
+                            <span class="text-xs text-gray-500 uppercase block font-sans mb-1 font-bold">Front vs Back Nasal</span>
+                            en <span class="font-normal text-gray-400">vs</span> eng
+                        </div>
+                        <div class="bg-gray-50 border border-gray-300 p-4 rounded-xl">
+                            <span class="text-xs text-gray-500 uppercase block font-sans mb-1 font-bold">Pronounced "ien / yen"</span>
+                            ian
+                        </div>
+                        <div class="bg-gray-50 border border-gray-300 p-4 rounded-xl">
+                            <span class="text-xs text-gray-500 uppercase block font-sans mb-1 font-bold">Pronounced "yuen"</span>
+                            üan
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comprehensive Pinyin Spelling Rules -->
+                <div class="space-y-6">
+                    <h3 class="text-3xl font-black text-gray-900 border-b-2 border-gray-300 pb-2">Complete Spelling Rules</h3>
+
+                    <!-- 1. Space Saving Rule (Complete Expanded Examples) -->
+                    <div class="bg-white p-8 rounded-2xl border border-gray-300 shadow-sm">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="text-2xl font-black text-gray-900">1. The Space-Saving Rule 🗜️ ("The Middle Letter Gets Squeezed Out!")</h4>
+                            <span class="page-badge">KLXHY Pg 4-5</span>
+                        </div>
+                        <p class="text-xl text-gray-700 mb-6">
+                            When initials join with compound finals <span class="pinyin font-bold text-gray-950">iou</span>, <span class="pinyin font-bold text-gray-950">uei</span>, and <span class="pinyin font-bold text-gray-950">uen</span>, writing space is compressed and the middle letter (<span class="font-bold">o</span> or <span class="font-bold">e</span>) is squeezed out!
+                        </p>
+                        
+                        <div class="space-y-4 pinyin text-xl">
+                            <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                <strong class="text-gray-900 font-sans block mb-1">iou &rarr; -iu (Standalone: you)</strong>
+                                <span class="text-gray-700">All examples:</span> 
+                                <span class="font-bold text-gray-900">x + iou = xiū | l + iou = liù | n + iou = niú | j + iou = jiǔ | q + iou = qiú | m + iou = miù | d + iou = diū</span>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                <strong class="text-gray-900 font-sans block mb-1">uei &rarr; -ui (Standalone: wei)</strong>
+                                <span class="text-gray-700">All examples:</span> 
+                                <span class="font-bold text-gray-900">d + uei = duì | t + uei = tuī | g + uei = guī | k + uei = kuì | h + uei = huì | zh + uei = zhuī | ch + uei = chuī | sh + uei = shuǐ | r + uei = ruì | z + uei = zuì | c + uei = cuì | s + uei = suì</span>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                <strong class="text-gray-900 font-sans block mb-1">uen &rarr; -un (Standalone: wen)</strong>
+                                <span class="text-gray-700">All examples:</span> 
+                                <span class="font-bold text-gray-900">t + uen = tūn | d + uen = dùn | l + uen = lùn | g + uen = gùn | k + uen = kùn | h + uen = hūn | zh + uen = zhǔn | ch + uen = chūn | sh + uen = shùn | r + uen = rùn | z + uen = zūn | c + uen = cūn | s + uen = sūn</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. The Y & W Bodyguards -->
+                    <div class="bg-white p-8 rounded-2xl border border-gray-300 shadow-sm">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="text-2xl font-black text-gray-900">2. The "Y & W" Bodyguards (Zero Initial Syllables) 🛡️</h4>
+                            <span class="page-badge">KLXHY Pg 4</span>
+                        </div>
+                        <p class="text-xl text-gray-700 mb-4">
+                            Syllables cannot start with naked <span class="pinyin font-bold">i, u, ü</span>. Only open-mouth <span class="pinyin font-bold">a, o, e</span> can stand alone without bodyguards (e.g., ā, è).
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pinyin text-xl">
+                            <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                <strong>i Group:</strong><br>
+                                Alone &rarr; add y (yi, yin, ying)<br>
+                                Mixed &rarr; replace with y (ia&rarr;ya, ian&rarr;yan, iou&rarr;you)
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                <strong>u Group:</strong><br>
+                                Alone &rarr; add w (u&rarr;wu)<br>
+                                Mixed &rarr; replace with w (ua&rarr;wa, uan&rarr;wan, uei&rarr;wei)
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                <strong>ü Group:</strong><br>
+                                Always add y AND drop two dots (ü&rarr;yu, üe&rarr;yue, üan&rarr;yuan, ün&rarr;yun)
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Dropping Dots on ü -->
+                    <div class="bg-white p-8 rounded-2xl border border-gray-300 shadow-sm">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="text-2xl font-black text-gray-900">3. Dropping Dots on "ü" 🎩</h4>
+                            <span class="page-badge">KLXHY Pg 4-5</span>
+                        </div>
+                        <div class="bg-gray-100 p-4 rounded-xl mb-4 text-xl">
+                            <strong class="text-gray-900">Crucial Pronunciation Reminder:</strong> Although the two dots are written off after <span class="pinyin font-bold">j, q, x, y</span>, <strong>THE PRONUNCIATION STILL FULLY RETAINS THE TIGHT "ü" SOUND!</strong> It never becomes the English "oo".
+                        </div>
+                        <div class="text-xl pinyin font-bold grid grid-cols-2 md:grid-cols-4 gap-3 bg-gray-50 p-4 rounded-xl border border-gray-200 text-center">
+                            <div>ju (jü), qu (qü), xu (xü)</div>
+                            <div>jue (jüe), que (qüe), xue (xüe)</div>
+                            <div>juan (jüan), quan (qüan), xuan (xüan)</div>
+                            <div>jun (jün), qun (qün), xun (xün)</div>
+                        </div>
+                        <p class="text-lg text-gray-600 mt-3">
+                            *Why keep dots for <span class="pinyin font-bold">n</span> and <span class="pinyin font-bold">l</span>? Because <span class="pinyin font-bold">n/l</span> can pair with both 'u' and 'ü' (e.g., lù land vs lǜ green). Dots are mandatory here!
+                        </p>
+                    </div>
+
+                    <!-- 4. Who Gets the Tone Crown? (Complete 6 Rules Restored) -->
+                    <div class="bg-white p-8 rounded-2xl border border-gray-300 shadow-sm">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="text-2xl font-black text-gray-900">4. Who Gets the Tone Crown? 👑 (6 Complete Rules)</h4>
+                            <span class="page-badge">KLXHY Pg 5</span>
+                        </div>
+                        <p class="text-xl text-gray-700 mb-3">
+                            The vowel mouth-aperture priority ladder dictates where tone marks sit:
+                        </p>
+                        <div class="pinyin font-bold text-3xl bg-gray-900 text-white text-center py-3 rounded-xl tracking-widest mb-6">
+                            a &gt; o &gt; e &gt; i &gt; u &gt; ü
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xl pinyin">
+                            <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                <strong class="text-gray-900 font-sans block mb-1">Rule 1: Single Vowel</strong>
+                                Mark sits directly on it: <span class="font-bold">mā, bǐ, kù</span>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                <strong class="text-gray-900 font-sans block mb-1">Rule 2: Two Vowels</strong>
+                                Follow ladder priority: <span class="font-bold">bǎi, guó, piào</span>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                <strong class="text-gray-900 font-sans block mb-1">Rule 3: Twin Twins (iu & ui)</strong>
+                                Crown sits on the <em>LAST</em> vowel: <span class="font-bold">tuī, qiú</span>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                <strong class="text-gray-900 font-sans block mb-1">Rule 4: Three Vowels</strong>
+                                Crown sits on the <em>MIDDLE</em> vowel: <span class="font-bold">guǎi, shuài</span>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                <strong class="text-gray-900 font-sans block mb-1">Rule 5: Dot-Free "i"</strong>
+                                Erase the dot when putting a crown over i: <span class="font-bold">nǐ, yín</span>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                <strong class="text-gray-900 font-sans block mb-1">Rule 6: Neutral Tone</strong>
+                                Never add tone marks on neutral syllables: <span class="font-bold">bàba, māma</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. Dividing Mark & Word Glue -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white p-6 rounded-2xl border border-gray-300 shadow-sm">
+                            <h4 class="text-2xl font-black text-gray-900 mb-2">5. The Syllable Slicer / Dividing Mark (') ✂️</h4>
+                            <p class="text-lg text-gray-700 mb-3">
+                                Official Term: <strong>Dividing Mark (géyīn fúhào)</strong>. Used when a syllable starting with <span class="pinyin font-bold">a, o, e</span> follows another syllable, preventing syllable boundary confusion:
+                            </p>
+                            <div class="bg-gray-100 p-3 rounded-lg text-xl font-bold pinyin text-center border border-gray-300">
+                                <span class="text-gray-400 line-through">Tiananmen</span> &rarr; <span class="text-gray-950">Tiān'ānmén</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl border border-gray-300 shadow-sm">
+                            <h4 class="text-2xl font-black text-gray-900 mb-2">6. Word Glue & Capitalization ✍️</h4>
+                            <p class="text-lg text-gray-700 mb-3">
+                                Syllables forming one meaningful word are glued together with no space. Capitalize sentence beginnings and proper nouns:
+                            </p>
+                            <div class="bg-gray-100 p-3 rounded-lg text-lg font-bold pinyin text-center border border-gray-300">
+                                <span class="text-gray-400 line-through">wǒ de peng you</span> &rarr; <span class="text-gray-950">Wǒ de péngyou.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Complete Lesson 1 Exercises & Reference Answers -->
+                <div class="bg-white rounded-2xl p-8 border border-gray-300 shadow-sm space-y-6">
+                    <div class="flex justify-between items-center border-b border-gray-200 pb-4">
+                        <h3 class="text-3xl font-black text-gray-900">Lesson 1: Complete Exercises & Answers</h3>
+                        <span class="page-badge">KLXHY Pg 6-7</span>
+                    </div>
+
+                    <!-- Ex A -->
+                    <div class="border border-gray-200 rounded-xl p-6 bg-gray-50">
+                        <h4 class="text-2xl font-bold text-gray-900 mb-3">Ex A: Identify Initials, Finals & Complete Syllables (Pg 6)</h4>
+                        <p class="text-xl mb-4 text-gray-700">1. Identify initials and finals: <em>bāo, shuǐ, míng, tiān, chòu, zhāng, xiào</em></p>
+                        <div class="bg-white p-4 rounded-lg border border-gray-300 text-lg pinyin mb-6">
+                            <strong>Reference Answers:</strong><br>
+                            • bāo: Initial [ b ], Final [ ao ]<br>
+                            • shuǐ: Initial [ sh ], Final [ ui ]<br>
+                            • míng: Initial [ m ], Final [ ing ]<br>
+                            • tiān: Initial [ t ], Final [ ian ]<br>
+                            • chòu: Initial [ ch ], Final [ ou ]<br>
+                            • zhāng: Initial [ zh ], Final [ ang ]<br>
+                            • xiào: Initial [ x ], Final [ iao ]
+                        </div>
+
+                        <p class="text-xl mb-2 text-gray-700">2. Listening Dictation Practice:</p>
+                        <div class="grid grid-cols-2 md:grid-cols-5 gap-2 pinyin text-lg font-bold">
+                            <div class="bg-white p-2 border rounded">1. zhōng (-ong)</div>
+                            <div class="bg-white p-2 border rounded">2. jiàn (-ian)</div>
+                            <div class="bg-white p-2 border rounded">3. hǎo (-ao)</div>
+                            <div class="bg-white p-2 border rounded">4. dōu (-ou)</div>
+                            <div class="bg-white p-2 border rounded">5. xiǎng (-iang)</div>
+                            <div class="bg-white p-2 border rounded">6. xué (x-)</div>
+                            <div class="bg-white p-2 border rounded">7. rì (r-)</div>
+                            <div class="bg-white p-2 border rounded">8. qù (q-)</div>
+                            <div class="bg-white p-2 border rounded">9. pāi (p-)</div>
+                            <div class="bg-white p-2 border rounded">10. yě (y-)</div>
+                        </div>
+                    </div>
+
+                    <!-- Ex B -->
+                    <div class="border border-gray-200 rounded-xl p-6 bg-gray-50">
+                        <h4 class="text-2xl font-bold text-gray-900 mb-3">Ex B: Add the Correct Tones (Pg 6)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 pinyin text-xl font-bold bg-white p-4 rounded-lg border border-gray-300">
+                            <div>1. mā (1st tone)</div>
+                            <div>2. shí (2nd tone)</div>
+                            <div>3. lǚ (3rd tone)</div>
+                            <div>4. cuò (4th tone)</div>
+                            <div>5. niū (1st tone)</div>
+                            <div>6. jié (2nd tone)</div>
+                            <div>7. tiǎo (3rd tone)</div>
+                            <div>8. shuài (4th tone)</div>
+                            <div>9. huāng (1st tone)</div>
+                            <div>10. xué (2nd tone)</div>
+                            <div>11. zǒu (3rd tone)</div>
+                            <div>12. niàn (4th tone)</div>
+                        </div>
+                    </div>
+
+                    <!-- Ex C & D -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="border border-gray-200 rounded-xl p-6 bg-gray-50">
+                            <h4 class="text-2xl font-bold text-gray-900 mb-3">Ex C: Tone Discrimination (Pg 6-7)</h4>
+                            <p class="text-lg font-bold mb-2">1. Listen & Select:</p>
+                            <div class="text-lg pinyin mb-4 space-y-1">
+                                <div>1. B. qián (前)</div>
+                                <div>2. D. cuì (脆)</div>
+                                <div>3. C. zhě (者)</div>
+                                <div>4. A. shōu (收)</div>
+                                <div>5. B. liáo (聊)</div>
+                                <div>6. A. chī (吃)</div>
+                            </div>
+                            <p class="text-lg font-bold mb-2">2. Tone Marks:</p>
+                            <div class="text-lg pinyin">
+                                shū, zhǐ, yào, suān, què, gē, rén, suì, wǎn, guó, nǚ, chá
+                            </div>
+                        </div>
+
+                        <div class="border border-gray-200 rounded-xl p-6 bg-gray-50">
+                            <h4 class="text-2xl font-bold text-gray-900 mb-3">Ex D: Sound Discrimination (Pg 7)</h4>
+                            <div class="grid grid-cols-2 gap-2 text-lg pinyin font-bold bg-white p-4 rounded-lg border border-gray-300">
+                                <div>1. A. zhuō (桌)</div>
+                                <div>2. B. ruò (若)</div>
+                                <div>3. A. bǐ (笔)</div>
+                                <div>4. B. nǚ (女)</div>
+                                <div>5. A. kǒu (口)</div>
+                                <div>6. B. tīng (听)</div>
+                                <div>7. B. qiāo (敲)</div>
+                                <div>8. B. yè (叶)</div>
+                                <div>9. A. xī (西)</div>
+                                <div>10. A. jiǔ (九)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ex E (Detailed Breakdown) -->
+                    <div class="border border-gray-200 rounded-xl p-6 bg-gray-50">
+                        <h4 class="text-2xl font-bold text-gray-900 mb-2">Ex E: Rewrite with Correct Pinyin Formatting (Pg 7)</h4>
+                        <div class="space-y-4 text-xl pinyin">
+                            <div class="bg-white p-4 rounded-lg border border-gray-300">
+                                <span class="text-gray-400 line-through block text-base font-normal">1. lin2 na4 shi4 wo3 de peng2you.</span>
+                                <strong class="text-gray-950 text-2xl block mt-1">Lín Nà shì wǒ de péngyou.</strong>
+                                <span class="text-sm text-gray-600 block mt-1 font-sans">Cap surname (Lín), Cap given name (Nà), tone marks over i/a/o, glue péngyou.</span>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-300">
+                                <span class="text-gray-400 line-through block text-base font-normal">2. ta1 jiao4 wang2 xiao3yun2.</span>
+                                <strong class="text-gray-950 text-2xl block mt-1">Tā jiào Wáng Xiǎoyún.</strong>
+                                <span class="text-sm text-gray-600 block mt-1 font-sans">Cap start (Tā), Cap surname (Wáng), Cap and glue given name (Xiǎoyún).</span>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-300">
+                                <span class="text-gray-400 line-through block text-base font-normal">3. chen2 lao3shi1 hen3 mang2.</span>
+                                <strong class="text-gray-950 text-2xl block mt-1">Chén lǎoshī hěn máng.</strong>
+                                <span class="text-sm text-gray-600 block mt-1 font-sans">Cap surname (Chén), glue lǎoshī, standard tones.</span>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-300">
+                                <span class="text-gray-400 line-through block text-base font-normal">4. wo3men xi3huan xue2xi2 han4yu3.</span>
+                                <strong class="text-gray-950 text-2xl block mt-1">Wǒmen xǐhuan xuéxí Hànyǔ.</strong>
+                                <span class="text-sm text-gray-600 block mt-1 font-sans">Glue wǒmen, xǐhuan, xuéxí; Capitalize language proper noun (Hànyǔ).</span>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-300">
+                                <span class="text-gray-400 line-through block text-base font-normal">5. ni3men dou1 bu2shi4 zhong1guo2 ren2.</span>
+                                <strong class="text-gray-950 text-2xl block mt-1">Nǐmen dōu búshì Zhōngguó rén.</strong>
+                                <span class="text-sm text-gray-600 block mt-1 font-sans">Glue nǐmen, glue búshì (tone sandhi), Cap Zhōngguó, separate nationality marker rén.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================================
+                 SECTION 2: CHINESE CHARACTERS
+            ======================================================== -->
+            <section id="sec-characters" class="hidden-section space-y-12">
+                <div class="border-b-4 border-gray-900 pb-6">
+                    <h2 class="text-5xl font-black text-gray-900 tracking-tight">2. Chinese Characters (Hànzì)</h2>
+                    <p class="text-gray-600 mt-3 text-2xl font-medium">Strokes, Writing Mechanics, Confusing Strokes & Stroke Order <span class="page-badge ml-3">KLXHY Pg 8-13</span></p>
+                </div>
+
+                <!-- Stroke Definition & Concept of 'zhé' -->
+                <div class="bg-gray-900 text-white rounded-2xl p-8 border border-gray-800 space-y-4">
+                    <h3 class="text-3xl font-black text-gray-100">Core Principle: One Single Continuous Stroke</h3>
+                    <p class="text-xl text-gray-300 leading-relaxed">
+                        A stroke is written in <strong>ONE single continuous movement</strong> from start to finish without lifting your pen from the paper. In this course, we learn strokes and character components, not alphabetical spellings.
+                    </p>
+                    
+                    <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 space-y-3 text-xl">
+                        <strong class="text-white text-2xl block">💡 Defining "zhé" (折) & The Naming Secret:</strong>
+                        <p class="text-gray-300">
+                            • <strong>Definition of zhé (折):</strong> It is a <strong>continuous turning or bending motion in one stroke</strong> without lifting your pen. (Not just a 90° angle, as slanted turns like <span class="pinyin font-bold">piě zhé 𠃋</span> are acute/slanted!).
+                        </p>
+                        <p class="text-gray-300">
+                            • <strong>Why is "héng zhé" NOT called "héng shù"? Why is "shù zhé" NOT called "shù héng"?</strong><br>
+                            Because in Chinese calligraphy, a stroke is defined by one unbroken breath of ink. If you call it "héng shù", it sounds like two separate strokes (1st stroke héng, 2nd stroke shù). Because the pen turns mid-stroke in a single movement, that turning action itself is named <strong>zhé (Turn)</strong>! Hence: <span class="pinyin font-bold text-white">héng + zhé = héng zhé (𠃍)</span>.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 23 Basic & Composite Strokes -->
+                <div>
+                    <h3 class="text-3xl font-black text-gray-900 mb-6">Master Stroke Classification</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Basic & Mix -->
+                        <div class="bg-white p-6 rounded-2xl border border-gray-300 shadow-sm">
+                            <h4 class="text-2xl font-bold mb-4 border-b pb-2 text-gray-900">Basic & Mix Strokes</h4>
+                            <table class="text-xl">
+                                <tr><th>Stroke Name</th><th>Symbol</th><th>Direction & Technique</th></tr>
+                                <tr><td class="pinyin font-bold">diǎn</td><td class="hanzi text-3xl font-bold text-center">丶</td><td>Top-left to bottom-right dot</td></tr>
+                                <tr><td class="pinyin font-bold">héng</td><td class="hanzi text-3xl font-bold text-center">一</td><td>Strictly left to right</td></tr>
+                                <tr><td class="pinyin font-bold">shù</td><td class="hanzi text-3xl font-bold text-center">丨</td><td>Straight top to bottom</td></tr>
+                                <tr><td class="pinyin font-bold">piě</td><td class="hanzi text-3xl font-bold text-center">丿</td><td>Falling slant top-right to bottom-left</td></tr>
+                                <tr><td class="pinyin font-bold">nà</td><td class="hanzi text-3xl font-bold text-center">㇏</td><td>Falling slant top-left to bottom-right</td></tr>
+                                <tr><td class="pinyin font-bold">tí</td><td class="hanzi text-3xl font-bold text-center">㇀</td><td>Rising flick bottom-left to top-right</td></tr>
+                                <tr><td class="pinyin font-bold">héng piě</td><td class="hanzi text-3xl font-bold text-center">㇇</td><td>Horizontal then curve left-down</td></tr>
+                                <tr><td class="pinyin font-bold">piě diǎn</td><td class="hanzi text-3xl font-bold text-center">𡿨</td><td>Slant down-left then wide turn down-right</td></tr>
+                                <tr><td class="pinyin font-bold">shù tí</td><td class="hanzi text-3xl font-bold text-center">𠄌</td><td>Vertical down then flick up-right</td></tr>
+                            </table>
+                        </div>
+
+                        <!-- Turns, Hooks & Complex -->
+                        <div class="bg-white p-6 rounded-2xl border border-gray-300 shadow-sm">
+                            <h4 class="text-2xl font-bold mb-4 border-b pb-2 text-gray-900">Turns (zhé), Hooks (gōu) & Complex</h4>
+                            <table class="text-xl">
+                                <tr><th>Stroke Name</th><th>Symbol</th><th>Direction & Technique</th></tr>
+                                <tr><td class="pinyin font-bold">héng zhé</td><td class="hanzi text-3xl font-bold text-center">𠃍</td><td>Horizontal then 90° turn down</td></tr>
+                                <tr><td class="pinyin font-bold">shù zhé</td><td class="hanzi text-3xl font-bold text-center">𠃊</td><td>Vertical down then turn horizontal right</td></tr>
+                                <tr><td class="pinyin font-bold">piě zhé</td><td class="hanzi text-3xl font-bold text-center">𠃋</td><td>Slanted down-left then acute turn right</td></tr>
+                                <tr><td class="pinyin font-bold">héng gōu</td><td class="hanzi text-3xl font-bold text-center">乛</td><td>Horizontal with short flick down-left</td></tr>
+                                <tr><td class="pinyin font-bold">shù gōu</td><td class="hanzi text-3xl font-bold text-center">亅</td><td>Straight vertical, sharp hook up-left</td></tr>
+                                <tr><td class="pinyin font-bold">xié gōu</td><td class="hanzi text-3xl font-bold text-center">㇂</td><td>Slanted diagonal stem, hook points to 12 o'clock</td></tr>
+                                <tr><td class="pinyin font-bold">wò gōu</td><td class="hanzi text-3xl font-bold text-center">㇃</td><td>Lying-down bracket curved hook (心)</td></tr>
+                                <tr><td class="pinyin font-bold">wān gōu</td><td class="hanzi text-3xl font-bold text-center">㇁</td><td>Curved back bracket hook (了)</td></tr>
+                                <tr><td class="pinyin font-bold">shù wān gōu</td><td class="hanzi text-3xl font-bold text-center">乚</td><td>Vertical down, smooth flat curve, hook up (七)</td></tr>
+                                <tr><td class="pinyin font-bold">héng zhé gōu</td><td class="hanzi text-3xl font-bold text-center">𠃌</td><td>Horizontal &rarr; turn down &rarr; hook left (刀)</td></tr>
+                                <tr><td class="pinyin font-bold">héng zhé tí</td><td class="hanzi text-3xl font-bold text-center">㇊</td><td>Horizontal &rarr; turn down &rarr; lift up-right (讠)</td></tr>
+                                <tr><td class="pinyin font-bold">shù zhé zhé gōu</td><td class="hanzi text-3xl font-bold text-center">㇉</td><td>Down &rarr; right &rarr; down &rarr; hook left (马)</td></tr>
+                                <tr><td class="pinyin font-bold">héng xié gōu</td><td class="hanzi text-3xl font-bold text-center">⺄</td><td>Horizontal &rarr; slant down-right &rarr; hook (飞)</td></tr>
+                                <tr><td class="pinyin font-bold">héng zhé wān gōu</td><td class="hanzi text-3xl font-bold text-center">㇈</td><td>Horizontal &rarr; turn &rarr; smooth curve &rarr; hook (九, 乙)</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5 Visual Hacks: Confusing Strokes (Fully Included) -->
+                <div class="bg-white rounded-2xl p-8 border border-gray-300 shadow-sm space-y-6">
+                    <h3 class="text-3xl font-black text-gray-900 border-b border-gray-200 pb-3">👁️ Spot the Differences: All 5 Confusing Stroke Pairs!</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+                            <span class="font-bold text-2xl text-gray-900 block mb-2">1. Straight vs Slanted vs Curved Hooks:</span>
+                            <div class="text-xl pinyin space-y-1">
+                                • <span class="font-bold text-gray-900">shù gōu (亅)</span>: Straight vertical stem, hooks up-left.<br>
+                                • <span class="font-bold text-gray-900">xié gōu (㇂)</span>: Slanted diagonal stem, hook points straight up to 12 o'clock.<br>
+                                • <span class="font-bold text-gray-900">wān gōu (㇁)</span>: Curving right-bracket belly shape, hooks up-left.
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+                            <span class="font-bold text-2xl text-gray-900 block mb-2">2. Sharp Turn vs Wide Angle:</span>
+                            <div class="text-xl pinyin space-y-1">
+                                • <span class="font-bold text-gray-900">piě zhé (𠃋)</span>: Acute turning corner (like a slanted 'V'), ends with flat horizontal line.<br>
+                                • <span class="font-bold text-gray-900">piě diǎn (𡿨)</span>: Wide obtuse angle, second segment continues falling down-right as a long dot.
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+                            <span class="font-bold text-2xl text-gray-900 block mb-2">3. Left Hook vs Right Lift:</span>
+                            <div class="text-xl pinyin space-y-1">
+                                • <span class="font-bold text-gray-900">shù gōu (亅)</span>: Hook flicks to the LEFT.<br>
+                                • <span class="font-bold text-gray-900">shù tí (𠄌)</span>: Lift flicks up to the RIGHT like striking a match!
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+                            <span class="font-bold text-2xl text-gray-900 block mb-2">4. Lift Up-Right vs Hook Down-Left:</span>
+                            <div class="text-xl pinyin space-y-1">
+                                • <span class="font-bold text-gray-900">héng zhé tí (㇊)</span>: Turns down and then LIFTS up-right (radical 讠).<br>
+                                • <span class="font-bold text-gray-900">héng zhé gōu (𠃌)</span>: Turns down and then HOOKS inward to the left (radical 刀).
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-gray-50 border border-gray-200">
+                            <span class="font-bold text-2xl text-gray-900 block mb-2">5. Straight Slant vs Curved Flat Base:</span>
+                            <div class="text-xl pinyin space-y-1">
+                                • <span class="font-bold text-gray-900">héng xié gōu (⺄)</span>: Slants diagonally straight down-right before hooking up (飞).<br>
+                                • <span class="font-bold text-gray-900">héng zhé wān gōu (㇈)</span>: Turns down, glides across a smooth curved bottom base, then hooks up (九, 乙).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8 General Rules & Structure Types -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-8 rounded-2xl border border-gray-300 shadow-sm">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-2xl font-black text-gray-900">8 Rules for Writing Full Characters</h3>
+                            <span class="page-badge">KLXHY Pg 9</span>
+                        </div>
+                        <p class="text-lg text-gray-600 mb-4 font-bold">These govern complete characters in square grids:</p>
+                        <ul class="text-xl space-y-2 text-gray-800">
+                            <li>1. Horizontal before vertical (<span class="hanzi font-bold">十, 木</span>)</li>
+                            <li>2. Left-falling before right-falling (<span class="hanzi font-bold">人, 大</span>)</li>
+                            <li>3. From top to bottom (<span class="hanzi font-bold">三, 劳</span>)</li>
+                            <li>4. From left to right (<span class="hanzi font-bold">川, 什</span>)</li>
+                            <li>5. From outside to inside (<span class="hanzi font-bold">月, 问</span>)</li>
+                            <li>6. Fill inside before sealing frame (<span class="hanzi font-bold">四, 国</span>)</li>
+                            <li>7. Middle precedes the two sides (<span class="hanzi font-bold">小, 水</span>)</li>
+                            <li>8. Vertical passing middle comes last (<span class="hanzi font-bold">手, 事</span>)</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-2xl border border-gray-300 shadow-sm">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-2xl font-black text-gray-900">Character Structure Types</h3>
+                            <span class="page-badge">KLXHY Pg 9</span>
+                        </div>
+                        <ul class="text-xl space-y-3 text-gray-800">
+                            <li><strong>Single-Component:</strong> One solid unit, cannot be split (<span class="hanzi font-bold">木, 马, 人, 月</span>).</li>
+                            <li><strong>Left-Right:</strong> Two side-by-side components (<span class="hanzi font-bold">好, 你, 认, 朋</span>).</li>
+                            <li><strong>Top-Bottom:</strong> Stacked components (<span class="hanzi font-bold">字, 早, 点, 学</span>).</li>
+                            <li><strong>Triangle:</strong> Three components stacked in pyramid (<span class="hanzi font-bold">品, 森</span>).</li>
+                            <li><strong>Semi-Enclosed:</strong> 2 or 3 sides framed (<span class="hanzi font-bold">进, 店, 问, 医, 句</span>).</li>
+                            <li><strong>Fully Enclosed:</strong> All 4 sides surrounded (<span class="hanzi font-bold">国, 四, 回, 园</span>).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Complete Lesson 2 Exercises & Reference Answers -->
+                <div class="bg-white rounded-2xl p-8 border border-gray-300 shadow-sm space-y-6">
+                    <div class="flex justify-between items-center border-b border-gray-200 pb-4">
+                        <h3 class="text-3xl font-black text-gray-900">Lesson 2: Complete Exercises & Answers</h3>
+                        <span class="page-badge">KLXHY Pg 10-13</span>
+                    </div>
+
+                    <!-- Ex A.2 -->
+                    <div class="border border-gray-200 rounded-xl p-6 bg-gray-50">
+                        <h4 class="text-2xl font-bold text-gray-900 mb-3">Ex A.2: Stroke Table Fill-in (Pg 10)</h4>
+                        <p class="text-lg font-bold mb-2">Part 1: Given Name &rarr; Write Stroke</p>
+                        <div class="grid grid-cols-2 md:grid-cols-5 gap-2 text-xl pinyin font-bold bg-white p-4 rounded-lg border border-gray-300 mb-4 text-center">
+                            <div>1. piě &rarr; <span class="hanzi text-3xl font-bold">丿</span></div>
+                            <div>2. shù gōu &rarr; <span class="hanzi text-3xl font-bold">亅</span></div>
+                            <div>3. héng zhé &rarr; <span class="hanzi text-3xl font-bold">𠃍</span></div>
+                            <div>4. héng piě &rarr; <span class="hanzi text-3xl font-bold">㇇</span></div>
+                            <div>5. shù zhé zhé gōu &rarr; <span class="hanzi text-3xl font-bold">㇉</span></div>
+                        </div>
+                        <p class="text-lg font-bold mb-2">Part 2: Given Stroke &rarr; Write Name</p>
+                        <div class="grid grid-cols-2 md:grid-cols-5 gap-2 text-lg pinyin font-bold bg-white p-4 rounded-lg border border-gray-300 text-center">
+                            <div>6. 乙 &rarr; héng zhé wān gōu</div>
+                            <div>7. 𡿨 &rarr; piě diǎn</div>
+                            <div>8. ㇏ &rarr; nà</div>
+                            <div>9. ㇀ &rarr; tí</div>
+                            <div>10. 𠃊 &rarr; shù zhé</div>
+                        </div>
+                    </div>
+
+                    <!-- Ex B (MUST MEMORIZE ALL 14) -->
+                    <div class="border border-gray-200 rounded-xl p-6 bg-gray-50">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="text-2xl font-bold text-gray-900">Ex B: Identify Stroke Order (Pg 11-12)</h4>
+                            <span class="text-red-700 bg-red-100 text-sm px-3 py-1 rounded font-bold">MUST MEMORIZE ALL 14!</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-lg pinyin">
+                            <div class="bg-white p-3 rounded border"><strong>1. 人 (2 strokes):</strong> 1st piě, 2nd nà</div>
+                            <div class="bg-white p-3 rounded border"><strong>2. 丁 (2 strokes):</strong> 1st héng, 2nd shù gōu</div>
+                            <div class="bg-white p-3 rounded border"><strong>3. 大 (3 strokes):</strong> 1st héng, 2nd piě, 3rd nà</div>
+                            <div class="bg-white p-3 rounded border"><strong>4. 马 (3 strokes):</strong> 1st héng zhé, 2nd shù zhé zhé gōu, 3rd héng</div>
+                            <div class="bg-white p-3 rounded border"><strong>5. 小 (3 strokes):</strong> 1st shù gōu, 2nd diǎn (or piě), 3rd diǎn</div>
+                            <div class="bg-white p-3 rounded border"><strong>6. 门 (3 strokes):</strong> 1st diǎn, 2nd shù, 3rd héng zhé gōu</div>
+                            <div class="bg-white p-3 rounded border"><strong>7. 木 (4 strokes):</strong> 1st héng, 2nd shù, 3rd piě, 4th nà</div>
+                            <div class="bg-white p-3 rounded border"><strong>8. 六 (4 strokes):</strong> 1st diǎn, 2nd héng, 3rd piě, 4th diǎn</div>
+                            <div class="bg-white p-3 rounded border"><strong>9. 中 (4 strokes):</strong> 1st shù, 2nd héng zhé, 3rd héng, 4th shù</div>
+                            <div class="bg-white p-3 rounded border"><strong>10. 火 (4 strokes):</strong> 1st diǎn, 2nd piě, 3rd piě, 4th nà</div>
+                            <div class="bg-white p-3 rounded border"><strong>11. 手 (4 strokes):</strong> 1st piě, 2nd héng, 3rd héng, 4th shù gōu</div>
+                            <div class="bg-white p-3 rounded border"><strong>12. 水 (4 strokes):</strong> 1st shù gōu, 2nd héng piě, 3rd piě, 4th nà</div>
+                            <div class="bg-white p-3 rounded border"><strong>13. 白 (5 strokes):</strong> 1st piě, 2nd shù, 3rd héng zhé, 4th héng, 5th héng</div>
+                            <div class="bg-white p-3 rounded border"><strong>14. 汉 (5 strokes):</strong> 1st diǎn, 2nd diǎn, 3rd tí, 4th héng piě, 5th nà</div>
+                        </div>
+                    </div>
+
+                    <!-- Ex C, D, E -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-lg">
+                        <div class="border border-gray-200 rounded-xl p-5 bg-gray-50">
+                            <h4 class="text-xl font-bold text-gray-900 mb-2">Ex C: Classify Types (Pg 12)</h4>
+                            <ul class="space-y-1">
+                                <li>1. 木: Single-Component</li>
+                                <li>2. 观: Multi-Component</li>
+                                <li>3. 田: Single-Component</li>
+                                <li>4. 好: Multi-Component</li>
+                                <li>5. 朋: Multi-Component</li>
+                                <li>6. 水: Single-Component</li>
+                                <li>7. 园: Multi-Component</li>
+                                <li>8. 马: Single-Component</li>
+                            </ul>
+                        </div>
+
+                        <div class="border border-gray-200 rounded-xl p-5 bg-gray-50">
+                            <h4 class="text-xl font-bold text-gray-900 mb-2">Ex D: Structures (Pg 13)</h4>
+                            <ul class="space-y-1">
+                                <li>1. 品: B. Triangle</li>
+                                <li>2. 学: C. Top-Bottom</li>
+                                <li>3. 医: E. Semi-Enclosed</li>
+                                <li>4. 国: D. Fully Enclosed</li>
+                                <li>5. 认: A. Left-Right</li>
+                                <li>6. 问: E. Semi-Enclosed</li>
+                                <li>7. 可: E. Semi-Enclosed</li>
+                                <li>8. 进: E. Semi-Enclosed</li>
+                            </ul>
+                        </div>
+
+                        <div class="border border-gray-200 rounded-xl p-5 bg-gray-50">
+                            <h4 class="text-xl font-bold text-gray-900 mb-2">Ex E: True / False (Pg 13)</h4>
+                            <ul class="space-y-1">
+                                <li>1. Gōu is part of stroke (√)</li>
+                                <li>2. Héng zhé is 1 stroke (√)</li>
+                                <li>3. Left-falling after right (x)</li>
+                                <li>4. Héng before shù (√)</li>
+                                <li>5. Single has 1 component (√)</li>
+                                <li>6. 明 is semi-enclosed (x)</li>
+                                <li>7. Middle before two sides (√)</li>
+                                <li>8. Seal before fill inside (x)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================================
+                 SECTION 3: ABOUT THE NUMBERS
+            ======================================================== -->
+            <section id="sec-numbers" class="hidden-section space-y-12">
+                <div class="border-b-4 border-gray-900 pb-6">
+                    <h2 class="text-5xl font-black text-gray-900 tracking-tight">3. About the Numbers</h2>
+                    <p class="text-gray-600 mt-3 text-2xl font-medium">Digits 0-10, Visual Hacks, Big Numbers & Reading Formulas <span class="page-badge ml-3">KLXHY Pg 14-19</span></p>
+                </div>
+
+                <!-- Numbers 0-10 & Updated Visual Hacks -->
+                <div>
+                    <h3 class="text-3xl font-black text-gray-900 mb-6">Numbers 0 to 10 & Updated Visual Memory Hacks</h3>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                        <div class="bg-white p-5 rounded-2xl border border-gray-300 shadow-sm text-center">
+                            <div class="hanzi text-5xl font-bold mb-1">零</div>
+                            <div class="pinyin text-2xl font-bold text-gray-800">líng</div>
+                            <div class="text-sm text-gray-500 mt-2 font-bold">Number 0</div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-gray-300 shadow-sm text-center">
+                            <div class="hanzi text-5xl font-bold mb-1">一</div>
+                            <div class="pinyin text-2xl font-bold text-gray-800">yī</div>
+                            <div class="text-sm text-gray-600 mt-2">1 horizontal stroke</div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-gray-300 shadow-sm text-center">
+                            <div class="hanzi text-5xl font-bold mb-1">二</div>
+                            <div class="pinyin text-2xl font-bold text-gray-800">èr</div>
+                            <div class="text-sm text-gray-600 mt-2">2 horizontal strokes</div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-gray-300 shadow-sm text-center">
+                            <div class="hanzi text-5xl font-bold mb-1">三</div>
+                            <div class="pinyin text-2xl font-bold text-gray-800">sān</div>
+                            <div class="text-sm text-gray-600 mt-2">3 horizontal strokes</div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-gray-300 shadow-sm text-center">
+                            <div class="hanzi text-5xl font-bold mb-1">四</div>
+                            <div class="pinyin text-2xl font-bold text-gray-800">sì</div>
+                            <div class="text-sm text-gray-600 mt-2">segi empat (square box)</div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-gray-300 shadow-sm text-center">
+                            <div class="hanzi text-5xl font-bold mb-1">五</div>
+                            <div class="pinyin text-2xl font-bold text-gray-800">wǔ</div>
+                            <div class="text-sm text-gray-900 font-bold mt-2">看起来像有个阿拉伯数字5</div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-gray-300 shadow-sm text-center">
+                            <div class="hanzi text-5xl font-bold mb-1">六</div>
+                            <div class="pinyin text-2xl font-bold text-gray-800">liù</div>
+                            <div class="text-sm text-gray-900 font-bold mt-2">底下一撇一点就像双手的拇指比划着“6”</div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-gray-300 shadow-sm text-center">
+                            <div class="hanzi text-5xl font-bold mb-1">七</div>
+                            <div class="pinyin text-2xl font-bold text-gray-800">qī</div>
+                            <div class="text-sm text-gray-600 mt-2">'q' of qī looks like upside-down '7'</div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-gray-300 shadow-sm text-center">
+                            <div class="hanzi text-5xl font-bold mb-1">八</div>
+                            <div class="pinyin text-2xl font-bold text-gray-800">bā</div>
+                            <div class="text-sm text-gray-900 font-bold mt-2">像手指比划着“8”但是是upside down的</div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-gray-300 shadow-sm text-center">
+                            <div class="hanzi text-5xl font-bold mb-1">九</div>
+                            <div class="pinyin text-2xl font-bold text-gray-800">jiǔ</div>
+                            <div class="text-sm text-gray-900 font-bold mt-2">那个撇looks like 'j' of jiǔ</div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-gray-300 shadow-sm text-center">
+                            <div class="hanzi text-5xl font-bold mb-1">十</div>
+                            <div class="pinyin text-2xl font-bold text-gray-800">shí</div>
+                            <div class="text-sm text-gray-900 font-bold mt-2">looks like 't' of ten</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- How to Say '2' (èr vs liǎng) -->
+                <div class="bg-white p-8 rounded-2xl border-l-8 border-gray-900 shadow-sm">
+                    <h3 class="text-3xl font-black text-gray-900 mb-4">How to Say "2" in Chinese? (èr vs liǎng)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-xl">
+                        <div class="p-5 bg-gray-50 rounded-xl border border-gray-200">
+                            <span class="pinyin text-3xl font-bold text-gray-950 block mb-2">èr (二)</span>
+                            <ul class="space-y-2 text-gray-700">
+                                <li>• The number itself for simple counting: <span class="pinyin font-bold">yī, èr, sān...</span></li>
+                                <li>• Mathematics calculations & phone numbers</li>
+                                <li>• Ordinals (second floor: <span class="pinyin font-bold">èr céng</span>)</li>
+                                <li>• In tens and ones place: <span class="pinyin font-bold">shí'èr (12), èrshí (20)</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="p-5 bg-gray-50 rounded-xl border border-gray-200">
+                            <span class="pinyin text-3xl font-bold text-gray-950 block mb-2">liǎng (两)</span>
+                            <ul class="space-y-2 text-gray-700">
+                                <li>• Used when indicating quantity with a Measure Word (e.g., <span class="pinyin font-bold">liǎng ge rén</span> = 2 people).</li>
+                                <li class="text-gray-950 font-black text-2xl bg-gray-200 p-2 rounded">
+                                    ⚠️ 总数一定只有 2 (The total quantity measured must strictly be only 2!)
+                                </li>
+                                <li>• In currency: <span class="pinyin font-bold">liǎng kuài</span> (RM 2)</li>
+                                <li>• In time hour: <span class="pinyin font-bold">liǎng diǎn</span> (2:00)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Base Units & Reading Pattern (e.g. 75394) -->
+                <div class="bg-white p-8 rounded-2xl border border-gray-300 shadow-sm space-y-6">
+                    <div class="flex justify-between items-center border-b pb-3">
+                        <h3 class="text-3xl font-black text-gray-900">Base Units & Building Pattern</h3>
+                        <span class="page-badge">KLXHY Pg 14</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center pinyin font-bold text-2xl">
+                        <div class="bg-gray-50 p-4 border rounded-xl">10 &rarr; shí (十)</div>
+                        <div class="bg-gray-50 p-4 border rounded-xl">100 &rarr; bǎi (百)</div>
+                        <div class="bg-gray-50 p-4 border rounded-xl">1,000 &rarr; qiān (千)</div>
+                        <div class="bg-gray-50 p-4 border rounded-xl">10,000 &rarr; wàn (万)</div>
+                    </div>
+
+                    <div class="bg-gray-900 text-white p-6 rounded-xl space-y-3">
+                        <strong class="text-2xl block text-gray-200">Reading Pattern Demonstration: Number "75394"</strong>
+                        <p class="text-lg text-gray-300">Break down each place value unit systematically from left to right:</p>
+                        <div class="flex justify-center items-center gap-4 text-2xl font-bold pinyin flex-wrap">
+                            <span class="bg-gray-800 px-4 py-2 rounded">7 (wàn)</span> + 
+                            <span class="bg-gray-800 px-4 py-2 rounded">5 (qiān)</span> + 
+                            <span class="bg-gray-800 px-4 py-2 rounded">3 (bǎi)</span> + 
+                            <span class="bg-gray-800 px-4 py-2 rounded">9 (shí)</span> + 
+                            <span class="bg-gray-800 px-4 py-2 rounded">4</span>
+                        </div>
+                        <div class="text-center text-3xl font-bold pinyin text-white pt-2 border-t border-gray-700">
+                            qī wàn wǔ qiān sān bǎi jiǔshí sì
+                        </div>
+                    </div>
+
+                    <!-- Teens & Tens -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xl pinyin">
+                        <div class="border p-4 rounded-xl">
+                            <strong>Teens (11-19):</strong> <span class="text-gray-600 font-sans text-base">Malay "belas" is at back; Chinese puts shí in front:</span><br>
+                            shíyī (11), shíwǔ (15), shíjiǔ (19)
+                        </div>
+                        <div class="border p-4 rounded-xl">
+                            <strong>Tens (20-99): Direct Malay Translation:</strong><br>
+                            èrshí (20), sìshísān (43), jiǔshíbā (98)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Extended Zeros & Ones Rules (With User's Exact Numbers) -->
+                <div class="bg-white p-8 rounded-2xl border border-gray-300 shadow-sm space-y-6">
+                    <h3 class="text-3xl font-black text-gray-900 border-b pb-3">Multi-Digit Reading Rules: "líng" and "yī"</h3>
+                    
+                    <div class="space-y-6 text-xl pinyin">
+                        <!-- Rule 1: The líng Rule -->
+                        <div class="p-6 bg-gray-50 rounded-xl border border-gray-200">
+                            <h4 class="text-2xl font-bold text-gray-950 mb-2 font-sans">1. The "líng" Rule (x0x / Middle Zeros)</h4>
+                            <p class="text-gray-700 font-sans mb-3">Any zero trapped in the middle of place units MUST be explicitly pronounced as <span class="font-bold">líng</span>:</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 font-bold text-gray-900">
+                                <div class="bg-white p-3 rounded border">5078 &rarr; wǔqiān <span class="underline">líng</span> qīshíbā</div>
+                                <div class="bg-white p-3 rounded border">9103 &rarr; jiǔqiān yībǎi <span class="underline">líng</span> sān</div>
+                                <div class="bg-white p-3 rounded border">60240 &rarr; liùwàn <span class="underline">líng</span> èrbǎi sìshí</div>
+                                <div class="bg-white p-3 rounded border">35001 &rarr; sānwàn wǔqiān <span class="underline">líng</span> yī</div>
+                            </div>
+                        </div>
+
+                        <!-- Rule 2: The yī Rule -->
+                        <div class="p-6 bg-gray-50 rounded-xl border border-gray-200">
+                            <h4 class="text-2xl font-bold text-gray-950 mb-2 font-sans">2. The "yī" Rule (x1x / Tens Digit 1 in Large Numbers)</h4>
+                            <p class="text-gray-700 font-sans mb-3">When 11-19 appear inside hundreds or thousands, the digit <span class="font-bold">yī</span> CANNOT be omitted before <span class="font-bold">shí</span>:</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 font-bold text-gray-900">
+                                <div class="bg-white p-3 rounded border">3197 &rarr; sānqiān <span class="underline">yī</span>bǎi jiǔshíqī</div>
+                                <div class="bg-white p-3 rounded border">4815 &rarr; sìqiān bābǎi <span class="underline">yī</span>shíwǔ</div>
+                                <div class="bg-white p-3 rounded border">81126 &rarr; bāwàn <span class="underline">yī</span>qiān <span class="underline">yī</span>bǎi èrshíliù</div>
+                                <div class="bg-white p-3 rounded border">79411 &rarr; qīwàn jiǔqiān sìbǎi <span class="underline">yī</span>shíyī</div>
+                            </div>
+                        </div>
+
+                        <!-- Rule 3: Hundreds + Tens Direct Translation -->
+                        <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                            <h4 class="text-2xl font-bold text-gray-950 mb-2 font-sans">3. Hundreds + Tens: Direct Translation</h4>
+                            <div class="font-bold text-gray-900">
+                                250 &rarr; <span class="underline">liǎngbǎi wǔshí / èrbǎi wǔshí</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- The Universal Number Formula & Applications -->
+                <div class="bg-white p-8 rounded-2xl border border-gray-300 shadow-sm space-y-6">
+                    <h3 class="text-3xl font-black text-gray-900 border-b pb-3">The Universal Chinese Number Formula</h3>
+                    
+                    <div class="bg-gray-900 text-white p-6 rounded-xl text-center space-y-2">
+                        <div class="text-3xl font-black pinyin">Number (Nu) + Unit / Measure Word (M) (+ Noun)</div>
+                        <p class="text-lg text-gray-300">
+                            Applied across Currency, Time, Quantities, and Dates.
+                        </p>
+                        <div class="bg-gray-800 text-yellow-300 text-xl font-bold p-3 rounded-lg border border-gray-700 mt-3 inline-block">
+                            🚨 CRITICAL EXCEPTION: Days of the week do NOT follow this format!
+                        </div>
+                        <p class="text-base text-gray-400">
+                            Days of the week use <strong>xīngqī + Nu</strong> (e.g., xīngqīyī = Monday) because <strong>Nu + xīngqī</strong> indicates the quantity of weeks (e.g., yī xīngqī = one week)!
+                        </p>
+                    </div>
+
+                    <!-- Currency & Time Grid with Added Examples -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pinyin text-xl">
+                        <!-- Currency -->
+                        <div class="border p-6 rounded-xl bg-gray-50">
+                            <h4 class="font-bold text-2xl text-gray-950 mb-3 font-sans">💰 Currency & Price Format</h4>
+                            <p class="text-base text-gray-600 mb-3 font-sans">Slot: ___ kuài (RM) ___ máo (10¢) ___ fēn (1¢)</p>
+                            <ul class="space-y-2 font-bold text-gray-900">
+                                <li>RM 2 &rarr; liǎng kuài</li>
+                                <li>RM 12 &rarr; shí'èr kuài</li>
+                                <li>RM 12.02 &rarr; shí'èr kuài liǎng fēn</li>
+                                <li>RM 12.20 &rarr; shí'èr kuài liǎng máo</li>
+                                <li>RM 1.39 &rarr; yí kuài sān máo jiǔ fēn</li>
+                                <li>RM 70.05 &rarr; qīshí kuài wǔ fēn <span class="text-sm font-sans font-normal text-gray-600">(Skip máo directly, NO líng!)</span></li>
+                            </ul>
+                        </div>
+
+                        <!-- Time -->
+                        <div class="border p-6 rounded-xl bg-gray-50">
+                            <h4 class="font-bold text-2xl text-gray-950 mb-3 font-sans">⏰ Telling Time Format</h4>
+                            <p class="text-base text-gray-600 mb-3 font-sans">Slot: ___ diǎn (Hour) ___ fēn (Minute)</p>
+                            <ul class="space-y-2 font-bold text-gray-900">
+                                <li>12:00 &rarr; shí'èr diǎn</li>
+                                <li>2:00 &rarr; liǎng diǎn <span class="text-sm font-sans font-normal text-gray-600">(Use liǎng!)</span></li>
+                                <li>2:22 &rarr; liǎng diǎn èrshí'èr fēn</li>
+                                <li>12:02 &rarr; shí'èr diǎn líng èr fēn <span class="text-sm font-sans font-normal text-gray-600">("líng" rule for min &lt; 10)</span></li>
+                                <li>12:20 &rarr; shí'èr diǎn èrshí fēn</li>
+                                <li>14:00 (24h) &rarr; liǎng diǎn <span class="text-sm font-sans font-normal text-gray-600">(Spoken converts to 12h!)</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Complete Lesson 3 Exercises & Reference Answers -->
+                <div class="bg-white rounded-2xl p-8 border border-gray-300 shadow-sm space-y-6">
+                    <div class="flex justify-between items-center border-b border-gray-200 pb-4">
+                        <h3 class="text-3xl font-black text-gray-900">Lesson 3: Complete Exercises & Answers</h3>
+                        <span class="page-badge">KLXHY Pg 18-19</span>
+                    </div>
+
+                    <!-- Ex B & C -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="border border-gray-200 rounded-xl p-5 bg-gray-50">
+                            <h4 class="text-xl font-bold text-gray-900 mb-2">Ex B: Student Number (Pg 18)</h4>
+                            <p class="text-lg text-gray-700">Write digit-by-digit in Pinyin: e.g., BB26110999 &rarr; <span class="pinyin font-bold">B B èr liù yī yī líng jiǔ jiǔ jiǔ</span>.</p>
+                        </div>
+                        <div class="border border-gray-200 rounded-xl p-5 bg-gray-50">
+                            <h4 class="text-xl font-bold text-gray-900 mb-2">Ex C: Complete Table (Pg 18)</h4>
+                            <div class="grid grid-cols-2 gap-2 text-lg pinyin font-bold">
+                                <div>26 &rarr; èrshíliù</div>
+                                <div>47 &rarr; sìshíqī</div>
+                                <div>53 &rarr; wǔshísān</div>
+                                <div>shíjiǔ &rarr; 19</div>
+                                <div>qīshí &rarr; 70</div>
+                                <div>bāshí'èr &rarr; 82</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ex D -->
+                    <div class="border border-gray-200 rounded-xl p-6 bg-gray-50">
+                        <h4 class="text-2xl font-bold text-gray-900 mb-3">Ex D: Fill in the Missing Numbers (Pg 18)</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-lg pinyin">
+                            <div>1. 一 (1), 二 (2), <strong>三 (sān / 3)</strong></div>
+                            <div>2. 四 (4), <strong>五 (wǔ / 5)</strong>, 六 (6)</div>
+                            <div>3. 七 (7), 八 (8), <strong>九 (jiǔ / 9)</strong></div>
+                            <div>4. 二十 (20), <strong>二十一 (èrshíyī / 21)</strong>, 二十二 (22)</div>
+                            <div>5. <strong>五十六 (wǔshíliù / 56)</strong>, 五十七 (57), 五十八 (58)</div>
+                            <div>6. shí (10), shíyī (11), <strong>shí'èr (12)</strong>, shísān (13)</div>
+                            <div>7. qīshí (70), bāshí (80), jiǔshí (90), <strong>yìbǎi (100)</strong></div>
+                            <div>8. sìshí'èr (42), <strong>sìshísì (44)</strong>, sìshíliù (46), <strong>sìshíbā (48)</strong>, wǔshí (50)</div>
+                            <div>9. yìbǎi líng sì (104), yìbǎi líng wǔ (105), <strong>yìbǎi líng liù (106)</strong></div>
+                            <div>10. yìbǎi yīshí (110), <strong>yìbǎi yīshíyī (111), yìbǎi yīshí'èr (112)</strong>, yìbǎi yīshísān (113)</div>
+                        </div>
+                    </div>
+
+                    <!-- Ex E & F -->
+                    <div class="border border-gray-200 rounded-xl p-6 bg-gray-50">
+                        <h4 class="text-2xl font-bold text-gray-900 mb-3">Ex E: Arithmetic in Pinyin & Hanzi (Pg 19)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-5 gap-3 text-lg pinyin font-bold text-center">
+                            <div class="bg-white p-2 border rounded">1. 3+5 = bā (8)</div>
+                            <div class="bg-white p-2 border rounded">2. 8×2 = shíliù (16)</div>
+                            <div class="bg-white p-2 border rounded">3. 100-40 = liùshí (60)</div>
+                            <div class="bg-white p-2 border rounded">4. 50÷10 = wǔ (5)</div>
+                            <div class="bg-white p-2 border rounded">5. 24+15 = sānshíjiǔ (39)</div>
+                            <div class="bg-white p-2 border rounded">6. 6+4 = 十 (shí/10)</div>
+                            <div class="bg-white p-2 border rounded">7. 9-3 = 六 (liù/6)</div>
+                            <div class="bg-white p-2 border rounded">8. 8+1 = 九 (jiǔ/9)</div>
+                            <div class="bg-white p-2 border rounded">9. 10÷5 = 二 (èr/2)</div>
+                            <div class="bg-white p-2 border rounded">10. 7×2 = 十四 (shísì/14)</div>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-xl p-6 bg-gray-50">
+                        <h4 class="text-2xl font-bold text-gray-900 mb-3">Ex F: Number Related Words (Pg 19)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-lg pinyin font-bold">
+                            <div class="bg-white p-2 border rounded">Monday: xīngqīyī</div>
+                            <div class="bg-white p-2 border rounded">Tuesday: xīngqī'èr</div>
+                            <div class="bg-white p-2 border rounded">Saturday: xīngqīliù</div>
+                            <div class="bg-white p-2 border rounded">Thursday: xīngqīsì</div>
+                            <div class="bg-white p-2 border rounded">RM 2: liǎng kuài</div>
+                            <div class="bg-white p-2 border rounded">RM 11: shíyī kuài</div>
+                            <div class="bg-white p-2 border rounded">RM 3.40: sān kuài sì máo</div>
+                            <div class="bg-white p-2 border rounded">RM 6.90: liù kuài jiǔ máo</div>
+                            <div class="bg-white p-2 border rounded">RM 0.50: wǔ máo</div>
+                            <div class="bg-white p-2 border rounded">RM 0.07: qī fēn</div>
+                            <div class="bg-white p-2 border rounded">2:00: liǎng diǎn</div>
+                            <div class="bg-white p-2 border rounded">12:00: shí'èr diǎn</div>
+                            <div class="bg-white p-2 border rounded">7:15: qī diǎn shíwǔ fēn</div>
+                            <div class="bg-white p-2 border rounded">10:08: shí diǎn líng bā fēn</div>
+                            <div class="bg-white p-2 border rounded">18:10: liù diǎn shí fēn</div>
+                            <div class="bg-white p-2 border rounded">21:40: jiǔ diǎn sìshí fēn</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================================
+                 SECTION 4: DAILY CONVERSATIONS (VOCAB ONLY)
+            ======================================================== -->
+            <section id="sec-conversations" class="hidden-section space-y-12">
+                <div class="border-b-4 border-gray-900 pb-6">
+                    <h2 class="text-5xl font-black text-gray-900 tracking-tight">4. Daily Conversations (Vocabulary)</h2>
+                    <p class="text-gray-600 mt-3 text-2xl font-medium">Essential 50 Vocabulary Flashcards (Pinyin & English Only, Hanzi Removed) <span class="page-badge ml-3">KLXHY Pg 20-24</span></p>
+                </div>
+
+                <div class="bg-gray-900 text-white p-6 rounded-2xl">
+                    <p class="text-xl">
+                        💡 <strong>Instruction:</strong> Each card displays only its <strong>English Meaning</strong>. Click on any block to flip and reveal its authentic Pinyin pronunciation! Location words also reveal their structural morpheme breakdown.
+                    </p>
+                </div>
+
+                <!-- 50 Vocabulary Flashcards (NO HANZI) -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                    <!-- Pronouns -->
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">I / me</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">wǒ</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">you (singular)</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">nǐ</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">he / she / it</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">tā</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">we / us</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">wǒmen</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">you (plural)</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">nǐmen</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">they / them</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">tāmen</div>
+                    </div>
+
+                    <!-- People & Family -->
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">teacher</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">lǎoshī</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">dad</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">bàba</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">mom</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">māma</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">elder brother</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">gēge</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">elder sister</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">jiějie</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">younger brother</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">dìdi</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">younger sister</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">mèimei</div>
+                    </div>
+
+                    <!-- Common Adjectives & Courtesy -->
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">very</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">hěn</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">not / no</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">bù / bú</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">good / fine</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">hǎo</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">goodbye</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">zàijiàn</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">thank you</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">xièxie</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">you're welcome</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">bú kèqi</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">sorry</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">duìbuqǐ</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">never mind / it's ok</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">méi guānxi</div>
+                    </div>
+
+                    <!-- Time Words -->
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">morning</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">zǎoshang</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">afternoon</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">xiàwǔ</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">evening / night</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">wǎnshang</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">yesterday</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">zuótiān</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">today</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">jīntiān</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">tomorrow</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">míngtiān</div>
+                    </div>
+
+                    <!-- 10 Core Locations (With INDIVIDUAL Morpheme Breakdown) -->
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-400 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">home / family</div>
+                        <div class="vocab-back pinyin font-bold text-2xl text-gray-950 flex-col">
+                            <span>jiā</span>
+                            <span class="text-xs font-sans text-gray-600 mt-2 font-normal">[Rule: always say huí jiā, never qù jiā!]</span>
+                        </div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-400 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">dormitory</div>
+                        <div class="vocab-back pinyin font-bold text-2xl text-gray-950 flex-col">
+                            <span>sùshè</span>
+                            <span class="text-xs font-sans text-gray-600 mt-2 font-normal">[Hack: shè 舍 = living quarters; sù = stay overnight]</span>
+                        </div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-400 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">university</div>
+                        <div class="vocab-back pinyin font-bold text-2xl text-gray-950 flex-col">
+                            <span>dàxué</span>
+                            <span class="text-xs font-sans text-gray-600 mt-2 font-normal">[Hack: xué 学 = institution for learning; dà = big]</span>
+                        </div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-400 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">classroom</div>
+                        <div class="vocab-back pinyin font-bold text-2xl text-gray-950 flex-col">
+                            <span>jiàoshì</span>
+                            <span class="text-xs font-sans text-gray-600 mt-2 font-normal">[Hack: shì 室 = functional room; jiào = to teach]</span>
+                        </div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-400 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">office</div>
+                        <div class="vocab-back pinyin font-bold text-2xl text-gray-950 flex-col">
+                            <span>bàngōngshì</span>
+                            <span class="text-xs font-sans text-gray-600 mt-2 font-normal">[Hack: shì 室 = functional room; bàngōng = do office work]</span>
+                        </div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-400 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">restaurant</div>
+                        <div class="vocab-back pinyin font-bold text-2xl text-gray-950 flex-col">
+                            <span>cāntīng</span>
+                            <span class="text-xs font-sans text-gray-600 mt-2 font-normal">[Hack: tīng 厅 = large public dining hall; cān = meal]</span>
+                        </div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-400 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">library</div>
+                        <div class="vocab-back pinyin font-bold text-2xl text-gray-950 flex-col">
+                            <span>túshūguǎn</span>
+                            <span class="text-xs font-sans text-gray-600 mt-2 font-normal">[Hack: guǎn 馆 = venue for collections/services; túshū = books]</span>
+                        </div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-400 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">cinema</div>
+                        <div class="vocab-back pinyin font-bold text-2xl text-gray-950 flex-col">
+                            <span>diànyǐngyuàn</span>
+                            <span class="text-xs font-sans text-gray-600 mt-2 font-normal">[Hack: yuàn 院 = specialized establishment; diànyǐng = film]</span>
+                        </div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-400 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">hospital</div>
+                        <div class="vocab-back pinyin font-bold text-2xl text-gray-950 flex-col">
+                            <span>yīyuàn</span>
+                            <span class="text-xs font-sans text-gray-600 mt-2 font-normal">[Hack: yuàn 院 = specialized establishment; yī = medical/healing]</span>
+                        </div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-400 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">shopping mall</div>
+                        <div class="vocab-back pinyin font-bold text-2xl text-gray-950 flex-col">
+                            <span>shāngchǎng</span>
+                            <span class="text-xs font-sans text-gray-600 mt-2 font-normal">[Hack: chǎng 场 = open public arena/square; shāng = commerce]</span>
+                        </div>
+                    </div>
+
+                    <!-- Foods & Drinks -->
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">hamburger</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">hànbāo</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">apple</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">píngguǒ</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">coffee</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">kāfēi</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">coke / cola</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">kělè</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">movie</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">diànyǐng</div>
+                    </div>
+
+                    <!-- Verbs -->
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">to go</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">qù</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">to return</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">huí</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">to be at / in / on</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">zài</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">to eat</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">chī</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">to drink</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">hē</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">to watch / look / read</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">kàn</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">to sing</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">chànggē</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">to like</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">xǐhuan</div>
+                    </div>
+                    <div class="vocab-card bg-white p-6 rounded-2xl border-2 border-gray-300 min-h-[140px] flex items-center justify-center text-center shadow-sm" onclick="this.classList.toggle('flipped')">
+                        <div class="vocab-front font-bold text-2xl text-gray-800">to want</div>
+                        <div class="vocab-back pinyin font-black text-3xl text-gray-950 flex-col">yào</div>
+                    </div>
+                </div>
+
+                <!-- Complete Lesson 4 Exercises & Reference Answers -->
+                <div class="bg-white rounded-2xl p-8 border border-gray-300 shadow-sm space-y-6">
+                    <div class="flex justify-between items-center border-b border-gray-200 pb-4">
+                        <h3 class="text-3xl font-black text-gray-900">Lesson 4: Complete Exercises & Answers</h3>
+                        <span class="page-badge">KLXHY Pg 23-24</span>
+                    </div>
+
+                    <!-- Ex A -->
+                    <div class="border border-gray-200 rounded-xl p-6 bg-gray-50">
+                        <h4 class="text-2xl font-bold text-gray-900 mb-3">Ex A: Match the Dialogues (Pg 23)</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-lg pinyin">
+                            <div class="bg-white p-3 rounded border">1) Nǐ zài nǎr? &rarr; <strong>D. Wǒ zài sùshè.</strong></div>
+                            <div class="bg-white p-3 rounded border">2) Nǐ māma hē kāfēi ma? &rarr; <strong>C. Tā hē kāfēi.</strong></div>
+                            <div class="bg-white p-3 rounded border">3) Nǐ hǎo ma? &rarr; <strong>A. Wǒ hěn hǎo.</strong></div>
+                            <div class="bg-white p-3 rounded border">4) Xièxie. &rarr; <strong>E. Bú kèqi.</strong></div>
+                            <div class="bg-white p-3 rounded border">5) Nǐ gēge xǐhuan shénme? &rarr; <strong>F. Tā xǐhuan chànggē.</strong></div>
+                            <div class="bg-white p-3 rounded border">6) Nǐ bàba qù cāntīng ma? &rarr; <strong>B. Tā bú qù.</strong></div>
+                            <div class="bg-white p-3 rounded border">7) Duìbuqi. &rarr; <strong>G. Méi guānxi.</strong></div>
+                            <div class="bg-white p-3 rounded border">8) Nǐ yào chī hànbāo ma? &rarr; <strong>H. Bù, wǒ yào chī píngguǒ.</strong></div>
+                        </div>
+                    </div>
+
+                    <!-- Ex B -->
+                    <div class="border border-gray-200 rounded-xl p-6 bg-gray-50">
+                        <h4 class="text-2xl font-bold text-gray-900 mb-3">Ex B: Rearrange the Sentences (Pg 23)</h4>
+                        <div class="space-y-3 text-lg pinyin">
+                            <div class="bg-white p-3 rounded border">
+                                1) xīngqī / shì / liù / jīntiān / bú<br>
+                                <strong>Answer: (4) (5) (2) (1) (3) &rarr; Jīntiān bú shì xīngqīliù.</strong>
+                            </div>
+                            <div class="bg-white p-3 rounded border">
+                                2) nǐ / yīyuàn / qù / ma / jiějie<br>
+                                <strong>Answer: (1) (5) (3) (2) (4) &rarr; Nǐ jiějie qù yīyuàn ma?</strong>
+                            </div>
+                            <div class="bg-white p-3 rounded border">
+                                3) zài / wǒ / bàngōngshì / lǎoshī / bú<br>
+                                <strong>Answer: (2) (4) (5) (1) (3) &rarr; Wǒ lǎoshī bú zài bàngōngshì.</strong>
+                            </div>
+                            <div class="bg-white p-3 rounded border">
+                                4) xǐhuan / mèimei / diànyǐng / tā / kàn<br>
+                                <strong>Answer: (4) (2) (1) (5) (3) &rarr; Tā mèimei xǐhuan kàn diànyǐng.</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ex C & D -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="border border-gray-200 rounded-xl p-6 bg-gray-50">
+                            <h4 class="text-2xl font-bold text-gray-900 mb-3">Ex C: Translate into Pinyin (Pg 24)</h4>
+                            <div class="space-y-3 text-lg pinyin">
+                                <div class="bg-white p-3 rounded border">
+                                    1) What do you want?<br>
+                                    <strong>&rarr; Nǐ yào shénme?</strong>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    2) Where is your younger brother?<br>
+                                    <strong>&rarr; Nǐ dìdi zài nǎr? (or Nǐ dìdi zài nǎlǐ?)</strong>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    3) Today, I am going to the library.<br>
+                                    <strong>&rarr; Jīntiān wǒ qù túshūguǎn. (or Wǒ jīntiān qù túshūguǎn.)</strong>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    4) He doesn't like drinking cola.<br>
+                                    <strong>&rarr; Tā bù xǐhuan hē kělè.</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border border-gray-200 rounded-xl p-6 bg-gray-50">
+                            <h4 class="text-2xl font-bold text-gray-900 mb-3">Ex D: Complete the Dialogues (Pg 24)</h4>
+                            <div class="space-y-3 text-lg pinyin">
+                                <div class="bg-white p-3 rounded border">
+                                    1) Picture 1 (Student greetings):<br>
+                                    <strong>Student: Lǎoshī hǎo. | Teacher: Nǐmen hǎo.</strong>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    2) Picture 2 (Accident apologizing):<br>
+                                    <strong>A: Duìbuqǐ. | B: Méi guānxi.</strong>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    3) Picture 3 (Refusing burger):<br>
+                                    <strong>A: Tā chī hànbāo ma? | B: Tā bù chī.</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================================
+                 SECTION 5: GRAMMAR FOCUS
+            ======================================================== -->
+            <section id="sec-grammar" class="hidden-section space-y-12">
+                <div class="border-b-4 border-gray-900 pb-6">
+                    <h2 class="text-5xl font-black text-gray-900 tracking-tight">5. Grammar Focus</h2>
+                    <p class="text-gray-600 mt-3 text-2xl font-medium">Syntax Architecture, Visual Combination Matrices, Particles & Sandhi <span class="page-badge ml-3">KLXHY Pg 20-22</span></p>
+                </div>
+
+                <!-- Basic Sentence Structure & No Tense Explanation -->
+                <div class="bg-white rounded-2xl p-8 border border-gray-300 shadow-sm space-y-6">
+                    <h3 class="text-3xl font-black text-gray-900 border-b pb-3">1. Chinese Sentence Structure (S + V + O & S + adv + A)</h3>
+                    
+                    <div class="bg-gray-100 p-6 rounded-xl border border-gray-300 text-xl leading-relaxed">
+                        <strong class="text-2xl text-gray-950 block mb-2">💡 NO Tense Conjugation in Chinese! (Past vs Present vs Future)</strong>
+                        <p class="text-gray-700">
+                            Unlike English, which alters verbs heavily (<em>eat / ate / eaten</em> or <em>go / went / gone</em>), <strong>Chinese verbs NEVER change form</strong>! Tense is conveyed entirely by <strong>time words</strong> or situational context:
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pinyin font-bold text-gray-900 mt-3 text-center">
+                            <div class="bg-white p-3 rounded border">Yesterday: Wǒ <span class="underline">zuótiān</span> qù túshūguǎn.</div>
+                            <div class="bg-white p-3 rounded border">Today: Wǒ <span class="underline">jīntiān</span> qù túshūguǎn.</div>
+                            <div class="bg-white p-3 rounded border">Tomorrow: Wǒ <span class="underline">míngtiān</span> qù túshūguǎn.</div>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-2 font-bold font-sans">
+                            *Notice the verb "qù" remains 100% unchanged in all three sentences!
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-300 text-xl">
+                        <strong class="text-gray-900 block mb-1">Sentence Structure in Questions:</strong>
+                        <p class="text-gray-700">
+                            Chinese statements and question sentences follow the <strong>EXACT same S + V + O word order</strong>! You do not invert subject and auxiliary verbs like English. Simply insert the question word into the object slot, or attach <span class="pinyin font-bold">ma</span> at the end!
+                        </p>
+                    </div>
+
+                    <!-- Visual Combination Matrix: S + V + O -->
+                    <h4 class="text-2xl font-black text-gray-900 pt-2">Visual Combination Matrix: S + V + O</h4>
+                    <div class="overflow-x-auto">
+                        <table class="pinyin text-lg">
+                            <thead>
+                                <tr class="bg-gray-900 text-white">
+                                    <th style="width: 25%;">Subject (S)</th>
+                                    <th style="width: 20%;">Verb (V)</th>
+                                    <th style="width: 35%;">Object / Action (O)</th>
+                                    <th style="width: 20%;">Question Mark</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white align-top">
+                                    <td>
+                                        <div class="font-bold text-gray-950 mb-2">Pronouns:</div>
+                                        wǒ, nǐ, tā,<br>
+                                        wǒmen, nǐmen, tāmen<br><br>
+                                        <div class="font-bold text-gray-950 mb-2">Family & Roles:</div>
+                                        lǎoshī, bàba, māma,<br>
+                                        gēge, jiějie, dìdi, mèimei
+                                    </td>
+                                    <td>
+                                        <strong class="text-gray-950">qù</strong> (go)<br>
+                                        <strong class="text-gray-950">huí</strong> (return)<br>
+                                        <strong class="text-gray-950">zài</strong> (at/in)<br><br>
+                                        <strong class="text-gray-950">chī</strong> (eat)<br><br>
+                                        <strong class="text-gray-950">hē</strong> (drink)<br><br>
+                                        <strong class="text-gray-950">kàn</strong> (watch/read)<br><br>
+                                        <strong class="text-gray-950">xǐhuan / yào</strong><br>
+                                        (like / want to)
+                                    </td>
+                                    <td>
+                                        <span class="text-gray-500 font-sans text-sm block font-bold mb-1">[For qù / huí / zài &rarr; 10 Locations]:</span>
+                                        sùshè, dàxué, jiàoshì, bàngōngshì, cāntīng, túshūguǎn, diànyǐngyuàn, yīyuàn, shāngchǎng, jiā (huí jiā!)<br><br>
+                                        <span class="text-gray-500 font-sans text-sm block font-bold mb-1">[For chī &rarr; Food]:</span>
+                                        hànbāo, píngguǒ<br><br>
+                                        <span class="text-gray-500 font-sans text-sm block font-bold mb-1">[For hē &rarr; Drinks]:</span>
+                                        kāfēi, kělè<br><br>
+                                        <span class="text-gray-500 font-sans text-sm block font-bold mb-1">[For kàn &rarr; Media]:</span>
+                                        diànyǐng, túshū<br><br>
+                                        <span class="text-gray-500 font-sans text-sm block font-bold mb-1">[For xǐhuan / yào + Verb]:</span>
+                                        kàn diànyǐng, chànggē, chī hànbāo, chī píngguǒ, hē kāfēi, hē kělè
+                                    </td>
+                                    <td class="text-center align-middle font-bold text-2xl">
+                                        ma? <br><br>
+                                        <span class="text-sm font-sans font-normal text-gray-500">(or replace O with <strong>shénme / nǎr</strong>)</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Time Word Position Table -->
+                <div class="bg-white rounded-2xl p-8 border border-gray-300 shadow-sm space-y-6">
+                    <h3 class="text-3xl font-black text-gray-900 border-b pb-3">2. Time Word Position: S + Time + V + O</h3>
+                    <p class="text-xl text-gray-700">
+                        In Chinese, time words MUST sit <strong>BEFORE the verb</strong>. They can sit either after the Subject, or right at the very beginning of the sentence:
+                    </p>
+
+                    <div class="overflow-x-auto">
+                        <table class="pinyin text-lg">
+                            <thead>
+                                <tr class="bg-gray-900 text-white">
+                                    <th style="width: 25%;">Subject (S)</th>
+                                    <th style="width: 35%;">Time Slot (BEFORE VERB)</th>
+                                    <th style="width: 15%;">Verb (V)</th>
+                                    <th style="width: 25%;">Object (O)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td class="font-bold">
+                                        Wǒ / Tā / Wǒmen
+                                    </td>
+                                    <td class="bg-gray-50">
+                                        <div class="font-bold text-gray-900 mb-1">Days:</div>
+                                        zuótiān, jīntiān, míngtiān<br>
+                                        xīngqīyī ... xīngqītiān<br><br>
+                                        <div class="font-bold text-gray-900 mb-1">Parts of Day:</div>
+                                        zǎoshang, xiàwǔ, wǎnshang<br><br>
+                                        <div class="font-bold text-gray-900 mb-1">Specific Clock Time:</div>
+                                        sān diǎn, qī diǎn sānshí fēn
+                                    </td>
+                                    <td class="font-bold">
+                                        qù<br>
+                                        chī<br>
+                                        kàn
+                                    </td>
+                                    <td>
+                                        túshūguǎn.<br>
+                                        hànbāo.<br>
+                                        diànyǐng.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-lg text-gray-600 font-bold pinyin">
+                        Alternative Pattern (Time + S + V + O): <span class="text-gray-900 font-black">Jīntiān wǒ qù túshūguǎn.</span>
+                    </p>
+                </div>
+
+                <!-- The "hěn" Rule & "yě" Sequence (S + adv + A) -->
+                <div class="bg-white rounded-2xl p-8 border border-gray-300 shadow-sm space-y-6">
+                    <h3 class="text-3xl font-black text-gray-900 border-b pb-3">3. The "hěn" (很) Rule & "yě" Sequence (S + adv + A)</h3>
+                    
+                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 text-xl leading-relaxed">
+                        <strong class="text-2xl text-gray-950 block mb-2">Why does "Wǒ hěn hǎo" need "hěn"?</strong>
+                        <p class="text-gray-700">
+                            In Chinese, an Adjective directly following a Subject creates an awkward comparative tension (saying <em>"Wǒ hǎo"</em> feels like unfinished contrast: "I am fine, but someone else is not"). Therefore, a neutral structural adverb like <span class="pinyin font-bold text-gray-950">hěn</span> is inserted as a grammatical bridge, even when you do not literally mean "extremely/very"!
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-100 p-6 rounded-xl border border-gray-300 text-xl">
+                        <strong class="text-2xl text-gray-950 block mb-2">Sequence Order: 先 "yě" 后 "hěn" (S + yě + hěn + A)</strong>
+                        <p class="text-gray-700">
+                            When combining <span class="pinyin font-bold">yě</span> (also) and <span class="pinyin font-bold">hěn</span> (very), <strong>yě MUST ALWAYS precede hěn</strong>:
+                        </p>
+                        <p class="text-2xl font-bold pinyin text-gray-950 mt-2">
+                            Wǒ <span class="underline">yě</span> <span class="underline">hěn</span> hǎo. &nbsp;<span class="text-sm font-sans font-normal text-gray-500">(NEVER: Wǒ hěn yě hǎo ❌)</span>
+                        </p>
+                        <p class="text-lg text-gray-600 mt-2">
+                            <strong>Linguistic Reason:</strong> <span class="pinyin font-bold">hěn</span> forms an inseparable descriptive predicate unit with the Adjective (<em>[hěn hǎo]</em>), whereas <span class="pinyin font-bold">yě</span> is a sentence-level adverb modifying the entire state/action!
+                        </p>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="pinyin text-lg">
+                            <thead>
+                                <tr class="bg-gray-900 text-white">
+                                    <th>Subject (S)</th>
+                                    <th>Adverb 1 (Scope)</th>
+                                    <th>Adverb 2 (Degree Bridge)</th>
+                                    <th>Adjective (A)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white font-bold">
+                                    <td>Wǒ / Tā / Lǎoshī</td>
+                                    <td>yě (also)</td>
+                                    <td>hěn (very)</td>
+                                    <td>hǎo (good) / máng (busy)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- "ma" vs "ne" & 5W1H Rules -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- ma vs ne -->
+                    <div class="bg-white p-8 rounded-2xl border border-gray-300 shadow-sm space-y-4">
+                        <h4 class="text-2xl font-black text-gray-900 border-b pb-2">Question Particles: "ma" vs "ne"</h4>
+                        
+                        <div class="space-y-3 text-lg">
+                            <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                                <strong class="text-xl text-gray-950 block mb-1 pinyin font-bold">ma (吗) - Yes/No Question</strong>
+                                <p class="text-gray-700">Appended to a complete statement to turn it into a binary confirmation question:</p>
+                                <p class="pinyin font-bold text-gray-900 mt-1">Nǐ zài dàxué ma? (Are you at the university?)</p>
+                            </div>
+
+                            <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                                <strong class="text-xl text-gray-950 block mb-1 pinyin font-bold">ne (呢) - Bounce-Back Question</strong>
+                                <p class="text-gray-700">Keywords: <strong>Reciprocal follow-up / "What about...? / How about...?"</strong>. Used to bounce the question back without repeating the sentence:</p>
+                                <p class="pinyin font-bold text-gray-900 mt-1">Wǒ hěn hǎo, nǐ ne? (I'm fine, and you?)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5W1H vs ma Prohibition -->
+                    <div class="bg-white p-8 rounded-2xl border border-gray-300 shadow-sm space-y-4">
+                        <h4 class="text-2xl font-black text-gray-900 border-b pb-2">5W1H Question Words vs "ma"</h4>
+                        
+                        <div class="p-4 bg-red-50 border-l-4 border-red-800 rounded-r-xl">
+                            <strong class="text-xl text-red-900 block mb-1">🚨 GOLDEN RULE: NEVER Combine 5W1H Words with "ma"!</strong>
+                            <p class="text-red-800 text-lg">
+                                If a sentence already contains a 5W1H question word like <span class="pinyin font-bold">nǎr / nǎlǐ</span> (where) or <span class="pinyin font-bold">shénme</span> (what), <strong>DO NOT attach "ma" at the end!</strong>
+                            </p>
+                        </div>
+
+                        <div class="space-y-2 pinyin text-xl font-bold pt-2">
+                            <div class="text-green-800 bg-green-50 p-2.5 rounded border border-green-200">✓ Correct: Nǐ qù nǎr?</div>
+                            <div class="text-red-700 bg-red-50 p-2.5 rounded border border-red-200 line-through">✗ Wrong: Nǐ qù nǎr ma?</div>
+                            <div class="text-green-800 bg-green-50 p-2.5 rounded border border-green-200">✓ Correct: Nǐ chī shénme?</div>
+                            <div class="text-red-700 bg-red-50 p-2.5 rounded border border-red-200 line-through">✗ Wrong: Nǐ chī shénme ma?</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tone Sandhi for "bù" (Textbook Pg 36) -->
+                <div class="bg-white p-8 rounded-2xl border border-gray-300 shadow-sm space-y-4">
+                    <div class="flex justify-between items-center border-b pb-3">
+                        <h3 class="text-3xl font-black text-gray-900">Tone Sandhi Rules for "bù" (不)</h3>
+                        <span class="page-badge">Textbook Pg 36</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xl pinyin">
+                        <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
+                            <strong class="font-sans text-xl block mb-2 text-gray-900">Normal 4th Tone (bù):</strong>
+                            Before 1st, 2nd, and 3rd tone syllables:<br>
+                            <span class="font-bold text-gray-950 mt-2 block">
+                                • bù chī (1st tone)<br>
+                                • bù huí (2nd tone)<br>
+                                • bù xǐhuan (3rd tone)
+                            </span>
+                        </div>
+
+                        <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
+                            <strong class="font-sans text-xl block mb-2 text-gray-900">Changes to 2nd Tone (bú):</strong>
+                            When followed by a 4th tone syllable:<br>
+                            <span class="font-bold text-gray-950 mt-2 block">
+                                • bú zài (4th tone)<br>
+                                • bú qù (4th tone)<br>
+                                • bú yào (4th tone)<br>
+                                • bú kèqi (4th tone)
+                            </span>
+                        </div>
+
+                        <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
+                            <strong class="font-sans text-xl block mb-2 text-gray-900">V-not-V Neutral Tone (bu):</strong>
+                            In affirmative-negative question forms, "bu" is pronounced light and neutral:<br>
+                            <span class="font-bold text-gray-950 mt-2 block">
+                                • yào bu yào<br>
+                                • chī bu chī<br>
+                                • qù bu qù
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Authentic Greetings & "Copy & Paste" Rule -->
+                <div class="bg-white p-8 rounded-2xl border border-gray-300 shadow-sm space-y-4">
+                    <h3 class="text-3xl font-black text-gray-900 border-b pb-3">Authentic Everyday Chinese Greetings Culture</h3>
+                    
+                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 text-xl leading-relaxed space-y-3">
+                        <strong class="text-2xl text-gray-950 block">"Nǐ hǎo" vs "Nǐ hǎo ma?" & The Copy-and-Paste Rule</strong>
+                        <p class="text-gray-700">
+                            • When greeting people in Chinese, you ONLY answer with <em>"Wǒ hěn hǎo"</em> if you hear the question particle <strong>"ma"</strong> (<span class="pinyin font-bold">Nǐ hǎo ma?</span>)!<br>
+                            • If someone says <span class="pinyin font-bold">"Nǐ hǎo"</span>, do NOT say "Wǒ hěn hǎo"! You simply <strong>COPY & PASTE</strong> their exact words back: <span class="pinyin font-bold">"Nǐ hǎo!"</span>.<br>
+                            • This Copy & Paste rule applies across all time greetings and farewells:
+                        </p>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 pinyin font-bold text-gray-900 text-center pt-2">
+                            <div class="bg-white p-3 rounded border">Zǎoshang hǎo! &rarr; Zǎoshang hǎo!</div>
+                            <div class="bg-white p-3 rounded border">Xiàwǔ hǎo! &rarr; Xiàwǔ hǎo!</div>
+                            <div class="bg-white p-3 rounded border">Wǎnshang hǎo! &rarr; Wǎnshang hǎo!</div>
+                            <div class="bg-white p-3 rounded border">Zàijiàn! &rarr; Zàijiàn!</div>
+                        </div>
+                        <p class="text-lg text-gray-600 pt-2">
+                            *Common everyday informal greetings also include: <span class="pinyin font-bold text-gray-900">Qù nǎr?</span> (Where are you heading?) and <span class="pinyin font-bold text-gray-900">Chī le ma?</span> (Have you eaten?).
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================================
+                 SECTION 6: COMPLETE SELF-CHECK LIST
+            ======================================================== -->
+            <section id="sec-checklist" class="hidden-section space-y-12">
+                <div class="border-b-4 border-gray-900 pb-6">
+                    <h2 class="text-5xl font-black text-gray-900 tracking-tight">✓ Complete Self-Check List</h2>
+                    <p class="text-gray-600 mt-3 text-2xl font-medium">Core Competency Matrix for Lessons 1 through 4</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 border border-gray-300 shadow-sm space-y-8 text-xl leading-relaxed">
+                    
+                    <!-- 1. Phonetics -->
+                    <div class="border-b border-gray-200 pb-6">
+                        <h3 class="text-2xl font-bold text-gray-950 mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 rounded-full bg-gray-900 text-white flex items-center justify-center text-sm">1</span>
+                            Phonetics Competencies (KLXHY Pg 1-7)
+                        </h3>
+                        <ul class="space-y-2 text-gray-700 ml-10">
+                            <li>🔲 I can produce all 4 tones with exaggerated facial/head movements on pitch levels (5-5, 3-5, 2-1-4, 5-1).</li>
+                            <li>🔲 I know how to count syllables in a sentence (1 character = 1 syllable = 1 pinyin block).</li>
+                            <li>🔲 I have mastered the Space-Saving Rule: middle letter squeezed out for <span class="pinyin font-bold">iou &rarr; iu, uei &rarr; ui, uen &rarr; un</span>.</li>
+                            <li>🔲 I know the Y & W Bodyguard rules for standalone <span class="pinyin font-bold">i, u, ü</span> syllables.</li>
+                            <li>🔲 I understand why dots are dropped after <span class="pinyin font-bold">j, q, x, y</span> but kept for <span class="pinyin font-bold">n, l</span>, and that the sound is still strictly <span class="pinyin font-bold">ü</span>!</li>
+                            <li>🔲 I can place tone crowns using the priority ladder <span class="pinyin font-bold">a &gt; o &gt; e &gt; i &gt; u &gt; ü</span> and the twin rule for <span class="pinyin font-bold">iu / ui</span>.</li>
+                            <li>🔲 I know when to insert the Dividing Mark (') before a, o, e (e.g., <span class="pinyin font-bold">Tiān'ānmén</span>).</li>
+                            <li>🔲 I can rewrite pinyin with correct word glue and proper noun capitalization.</li>
+                        </ul>
+                    </div>
+
+                    <!-- 2. Characters -->
+                    <div class="border-b border-gray-200 pb-6">
+                        <h3 class="text-2xl font-bold text-gray-950 mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 rounded-full bg-gray-900 text-white flex items-center justify-center text-sm">2</span>
+                            Chinese Characters Competencies (KLXHY Pg 8-13)
+                        </h3>
+                        <ul class="space-y-2 text-gray-700 ml-10">
+                            <li>🔲 I understand that a stroke is written in ONE single continuous motion without lifting the pen.</li>
+                            <li>🔲 I can explain why <span class="pinyin font-bold">zhé</span> (turn) and <span class="pinyin font-bold">gōu</span> (hook) are single continuous strokes, not two.</li>
+                            <li>🔲 I know the 5 visual difference hacks for confusing strokes (<span class="pinyin font-bold">shù gōu / xié gōu / wān gōu, piě zhé / piě diǎn, shù gōu / shù tí, héng zhé tí / héng zhé gōu, héng xié gōu / héng zhé wān gōu</span>).</li>
+                            <li>🔲 I have memorized the 8 general stroke order rules for full characters (e.g., horizontal before vertical, outside to inside, fill before sealing).</li>
+                            <li>🔲 I can classify Single-Component characters vs Multi-Component structures (Left-Right, Top-Bottom, Triangle, Semi-Enclosed, Fully Enclosed).</li>
+                            <li>🔲 I have memorized the exact stroke order for the 14 required characters in Exercise B (<span class="hanzi font-bold">人, 丁, 大, 马, 小, 门, 木, 六, 中, 火, 手, 水, 白, 汉</span>).</li>
+                        </ul>
+                    </div>
+
+                    <!-- 3. Numbers -->
+                    <div class="border-b border-gray-200 pb-6">
+                        <h3 class="text-2xl font-bold text-gray-950 mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 rounded-full bg-gray-900 text-white flex items-center justify-center text-sm">3</span>
+                            Numbers Competencies (KLXHY Pg 14-19)
+                        </h3>
+                        <ul class="space-y-2 text-gray-700 ml-10">
+                            <li>🔲 I can write Hanzi and Pinyin for 0-10 and remember their visual memory hacks (5 looks like 5, 6 thumb gesture, 8 upside-down gesture, 9 j-hook, 10 t-shape).</li>
+                            <li>🔲 I know the difference between <span class="pinyin font-bold">èr</span> (math/counting/ordinals) and <span class="pinyin font-bold">liǎng</span> (measuring quantity with measure words, <span class="font-bold underline">总数一定只有2</span>).</li>
+                            <li>🔲 I know base units <span class="pinyin font-bold">shí, bǎi, qiān, wàn</span> and can read large numbers like <span class="pinyin font-bold">75394 (qī wàn wǔ qiān sān bǎi jiǔshí sì)</span>.</li>
+                            <li>🔲 I can apply the middle <span class="pinyin font-bold">líng</span> rule to numbers like 5078, 9103, 60240, 35001.</li>
+                            <li>🔲 I can apply the internal <span class="pinyin font-bold">yī</span> rule to numbers like 3197, 4815, 81126, 79411.</li>
+                            <li>🔲 I can say 250 as <span class="pinyin font-bold">liǎngbǎi wǔshí / èrbǎi wǔshí</span>.</li>
+                            <li>🔲 I know the Universal Number Formula (Nu + M + Noun) and remember that <span class="font-bold underline">days of the week are the only exception (xīngqī + Nu)</span>.</li>
+                            <li>🔲 I can read currency (<span class="pinyin font-bold">kuài, máo, fēn</span>) including RM 2, RM 12, RM 12.02, RM 12.20, and skipping máo for RM 70.05.</li>
+                            <li>🔲 I can read time (<span class="pinyin font-bold">diǎn, fēn</span>) including 12:00, 2:00, 2:22, 12:02, 12:20, and converting 24h format to 12h.</li>
+                        </ul>
+                    </div>
+
+                    <!-- 4. Conversations & Grammar -->
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-950 mb-3 flex items-center gap-2">
+                            <span class="w-8 h-8 rounded-full bg-gray-900 text-white flex items-center justify-center text-sm">4</span>
+                            Conversations & Grammar Competencies (KLXHY Pg 20-24)
+                        </h3>
+                        <ul class="space-y-2 text-gray-700 ml-10">
+                            <li>🔲 I know all 50 vocabulary items (Pinyin pronunciation and English meaning).</li>
+                            <li>🔲 I know the morpheme breakdowns for all 10 locations (<span class="pinyin font-bold">xué, shè, shì, tīng, guǎn, yuàn, chǎng</span>) and always say <span class="pinyin font-bold">huí jiā</span> instead of qù jiā.</li>
+                            <li>🔲 I know Chinese has no past/present/future verb inflections (tense is told by time words).</li>
+                            <li>🔲 I can build sentences following <span class="pinyin font-bold">S + V + O</span> and place time words before the verb (<span class="pinyin font-bold">S + Time + V + O / Time + S + V + O</span>).</li>
+                            <li>🔲 I know why <span class="pinyin font-bold">hěn</span> is structurally necessary before adjectives (<span class="pinyin font-bold">S + hěn + A</span>).</li>
+                            <li>🔲 I know the sequence is strictly <span class="pinyin font-bold">先 yě 后 hěn (S + yě + hěn + A)</span> because hěn binds to the adjective predicate.</li>
+                            <li>🔲 I understand the difference between binary question particle <span class="pinyin font-bold">ma</span> and bounce-back particle <span class="pinyin font-bold">ne</span> (reciprocal question).</li>
+                            <li>🔲 I never combine 5W1H question words (<span class="pinyin font-bold">nǎr, shénme</span>) with <span class="pinyin font-bold">ma</span>.</li>
+                            <li>🔲 I know Tone Sandhi for <span class="pinyin font-bold">bù</span>: 4th tone before 1st/2nd/3rd (<span class="pinyin font-bold">bù chī, bù huí, bù xǐhuan</span>), 2nd tone before 4th (<span class="pinyin font-bold">bú zài, bú qù, bú yào, bú kèqi</span>), and neutral in V-not-V (<span class="pinyin font-bold">chī bu chī</span>).</li>
+                            <li>🔲 I apply the Copy & Paste rule when greeted with <span class="pinyin font-bold">Nǐ hǎo, Zǎoshang hǎo, Zàijiàn</span>, and only say "Wǒ hěn hǎo" when asked <span class="pinyin font-bold">"Nǐ hǎo ma?"</span>.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ========================================================
+         TAB NAVIGATION & INTERACTIVE CONTROLLERS
+    ======================================================== -->
+    <script>
+        function switchTab(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('main > div > section').forEach(sec => {
+                sec.classList.remove('active-section');
+                sec.classList.add('hidden-section');
+            });
+
+            // Show active section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.remove('hidden-section');
+                targetSection.classList.add('active-section');
+            }
+
+            // Update button styles
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-gray-800', 'text-white', 'shadow-md', 'border-gray-700');
+                btn.classList.add('hover:bg-gray-800', 'hover:text-white', 'border-transparent');
+            });
+
+            const activeBtn = document.getElementById('btn-' + sectionId);
+            if (activeBtn) {
+                activeBtn.classList.remove('hover:bg-gray-800', 'border-transparent');
+                activeBtn.classList.add('bg-gray-800', 'text-white', 'shadow-md', 'border-gray-700');
+            }
+
+            // Scroll main content to top
+            document.querySelector('main').scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
